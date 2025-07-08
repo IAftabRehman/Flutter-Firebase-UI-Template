@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intership_first_task/Screens/splashScreen.dart';
+import 'package:intership_first_task/Screens/registration.dart';
+import 'package:intership_first_task/Screens/registration2.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const SplashScreen(),
+      home: Registration2(),
     );
   }
 }
