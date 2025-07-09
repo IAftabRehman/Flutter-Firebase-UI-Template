@@ -37,6 +37,8 @@ dependencies:
   google_fonts: ^6.1.0    # for font family
   smooth_page_indicator: ^1.2.1  # for Onboarding
   provider: ^6.1.5
+  dotted_border: ^2.0.0 # for dashes border
+  font_awesome_flutter: ^10.8.0 # for Icons
 
 dev_dependencies:
   flutter_test:

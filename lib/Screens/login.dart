@@ -3,14 +3,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../Widgets/textBox_Widget.dart';
 
-class Registration extends StatelessWidget {
-  const Registration({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
@@ -46,7 +45,7 @@ class Registration extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Create Account",
+                      "Welcome Again!",
                       style: GoogleFonts.raleway(
                         fontSize: 23,
                         color: Color(0xFF292929),
@@ -62,27 +61,38 @@ class Registration extends StatelessWidget {
                         color: Color(0xFF292929),
                       ),
                     ),
-                    SizedBox(height: 15),
-                    TextBoxWithOutDashes(label: "Name"),
-                    SizedBox(height: 10),
+                    SizedBox(height: 30),
                     TextBoxWithOutDashes(label: "Email"),
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     TextBoxWithOutDashes(label: "Password"),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Confirm Password"),
-                    SizedBox(height: 25),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "Forgot Password?",
+                          style: GoogleFonts.raleway(
+                            fontSize: 13.33,
+                            fontWeight: FontWeight.w300,
+                            color: Color(0xFF339D44),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 15),
 
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF339D44),
-                        minimumSize: Size(double.infinity, 50),
+                        minimumSize: Size(double.infinity, 60),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
                       child: Text(
-                        "Next",
+                        "Login",
                         style: GoogleFonts.raleway(
                           fontSize: 16,
                           color: Colors.white,
@@ -91,26 +101,24 @@ class Registration extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 10),
+                    SizedBox(height: 15),
                     Text(
-                      "Already have an account?",
+                      "Don’t have an account?",
                       style: GoogleFonts.raleway(
                         fontSize: 13,
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-
+                    SizedBox(height: 15),
                     TextButton(
                       onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                       child: Text(
-                        "Login",
+                        "Sign Up",
                         style: GoogleFonts.raleway(
                           fontSize: 27.65,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF339D44)
+                          color: Color(0xFF339D44),
                         ),
                       ),
                     ),
@@ -120,43 +128,6 @@ class Registration extends StatelessWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ReUsableContainer extends StatelessWidget {
-  final String label;
-  // final String controller;
-
-  const ReUsableContainer({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 65,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.green, width: 1.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        child: Center(
-          child: TextFormField(
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.done,
-            style: TextStyle(fontSize: 18, color: Colors.black),
-            cursorColor: Colors.blue,
-            textAlign: TextAlign.left,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: label,
-              labelStyle: TextStyle(color: Colors.green, fontSize: 13),
-              hintStyle: TextStyle(fontSize: 17),
-            ),
-          ),
-        ),
       ),
     );
   }
