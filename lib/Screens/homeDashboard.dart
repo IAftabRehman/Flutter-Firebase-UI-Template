@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/questions.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -11,7 +13,13 @@ class HomeDashboard extends StatefulWidget {
 class _HomeDashboardState extends State<HomeDashboard> {
   int selectedIndex = 0;
 
-  List<Widget> screenList = [Text("First"), Text("First"), Text("First"), Text("First"), Text("First"),];
+  List<Widget> screenList = [
+    Text("First"),
+    Text("First"),
+    Text("First"),
+    Text("First"),
+    Text("First"),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +30,29 @@ class _HomeDashboardState extends State<HomeDashboard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Dashboard!", style: GoogleFonts.raleway(fontSize: 23.04, fontWeight: FontWeight.bold)),
+              Text(
+                "Dashboard!",
+                style: GoogleFonts.raleway(
+                  fontSize: 23.04,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               RichText(
                 text: TextSpan(
                   text: 'Welcome to Dashboard, ',
-                  style: GoogleFonts.raleway(color: Colors.black, fontSize: 11.11, fontWeight: FontWeight.w400),
+                  style: GoogleFonts.raleway(
+                    color: Colors.black,
+                    fontSize: 11.11,
+                    fontWeight: FontWeight.w400,
+                  ),
                   children: <TextSpan>[
                     TextSpan(
                       text: 'Aftab',
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                    )
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -40,17 +61,41 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
               Row(
                 children: [
-                  Expanded(child: ReUsableContainer(icon: Icons.question_mark, upperText: "224", lowerText: "Total Questions")),
+                  Expanded(
+                    child: ReUsableContainer(
+                      icon: Icons.question_mark,
+                      upperText: "224",
+                      lowerText: "Total Questions",
+                    ),
+                  ),
                   SizedBox(width: 15),
-                  Expanded(child: ReUsableContainer(icon: Icons.done_all, upperText: "154", lowerText: "Answer\nQuestions")),
+                  Expanded(
+                    child: ReUsableContainer(
+                      icon: Icons.done_all,
+                      upperText: "154",
+                      lowerText: "Answer\nQuestions",
+                    ),
+                  ),
                 ],
               ),
               SizedBox(height: 15),
               Row(
                 children: [
-                  Expanded(child: ReUsableContainer(icon: Icons.panorama_fish_eye_outlined, upperText: "1.5k", lowerText: "Total Views")),
+                  Expanded(
+                    child: ReUsableContainer(
+                      icon: Icons.panorama_fish_eye_outlined,
+                      upperText: "1.5k",
+                      lowerText: "Total Views",
+                    ),
+                  ),
                   SizedBox(width: 15),
-                  Expanded(child: ReUsableContainer(icon: Icons.youtube_searched_for_rounded, upperText: "12", lowerText: "Total Videos")),
+                  Expanded(
+                    child: ReUsableContainer(
+                      icon: Icons.youtube_searched_for_rounded,
+                      upperText: "12",
+                      lowerText: "Total Videos",
+                    ),
+                  ),
                 ],
               ),
             ],
@@ -58,29 +103,47 @@ class _HomeDashboardState extends State<HomeDashboard> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-          onTap: (val) {
-            selectedIndex = val;
-            setState(() {});
-          },
-          backgroundColor: Colors.red,
-          currentIndex: selectedIndex,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home, size: 40), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.question_mark_outlined, size: 40), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.video_call, size: 40), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.comment, size: 40), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.person, size: 40), label: ""),
-          ]),
+        onTap: (val) {
+          selectedIndex = val;
+          setState(() {});
+        },
+        backgroundColor: Colors.red,
+        currentIndex: selectedIndex,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 40), label: ""),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.question_mark_outlined, size: 40),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.video_call, size: 40),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.comment, size: 40),
+            label: "",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person, size: 40),
+            label: "",
+          ),
+        ],
+      ),
     );
   }
 }
-
 
 class ReUsableContainer extends StatelessWidget {
   final IconData icon;
   final String upperText;
   final String lowerText;
-  const ReUsableContainer({super.key, required this.icon, required this.upperText, required this.lowerText});
+
+  const ReUsableContainer({
+    super.key,
+    required this.icon,
+    required this.upperText,
+    required this.lowerText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -109,13 +172,68 @@ class ReUsableContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(upperText, style: GoogleFonts.raleway(fontSize: 23.04, fontWeight: FontWeight.bold)),
-              Text(lowerText, style: GoogleFonts.raleway(fontSize: 9.94, fontWeight: FontWeight.w400))
+              Text(
+                upperText,
+                style: GoogleFonts.raleway(
+                  fontSize: 23.04,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                lowerText,
+                style: GoogleFonts.raleway(
+                  fontSize: 9.94,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
   }
 }
 
+class CustomeBottomBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PersistentTabView(
+      tabs: [
+        PersistentTabConfig(
+          screen: HomeDashboard(),
+          item: ItemConfig(icon: Icon(Icons.home), activeForegroundColor: Colors.green),
+        ),
+        PersistentTabConfig(
+          screen: Questions(),
+          item: ItemConfig(icon: Icon(Icons.question_mark), activeForegroundColor: Colors.green),
+        ),
+        PersistentTabConfig(
+          screen: Text("Video Screen"),
+          item: ItemConfig(icon: Icon(Icons.video_call), activeForegroundColor: Colors.green),
+        ),
+        PersistentTabConfig(
+          screen: Text("Comments"),
+          item: ItemConfig(icon: Icon(Icons.comment_outlined), activeForegroundColor: Colors.green),
+        ),
+        PersistentTabConfig(
+          screen: Text("Profile"),
+          item: ItemConfig(icon: Icon(Icons.person), activeForegroundColor: Colors.green),
+        ),
+      ],
+      navBarBuilder: (navBarConfig) => Style4BottomNavBar(
+        height: 60,
+        navBarConfig: navBarConfig,
+
+        navBarDecoration: NavBarDecoration(
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+        ),
+
+        itemAnimationProperties: ItemAnimation(
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+        ),
+      ),
+    );
+  }
+}

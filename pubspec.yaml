@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.5
   dotted_border: ^2.0.0 # for dashes border
   font_awesome_flutter: ^10.8.0 # for Icons
+  persistent_bottom_nav_bar_v2: ^6.1.0 # for Bottom Bar
 
 dev_dependencies:
   flutter_test:

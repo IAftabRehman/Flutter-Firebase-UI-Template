@@ -16,15 +16,15 @@ class Login extends StatelessWidget {
             top: 0,
             left: 0,
             right: 0,
-            height: height * 0.6,
+            height: height * 0.7,
             child: Image.asset(
-              'assets/images/registration_image_1.png',
-              fit: BoxFit.cover,
+              'assets/images/login_image.png',
+              fit: BoxFit.fill,
             ),
           ),
 
           Positioned(
-            top: height * 0.3,
+            top: height * 0.4,
             left: 0,
             right: 0,
             height: height * 0.75,
@@ -65,7 +65,7 @@ class Login extends StatelessWidget {
                     TextBoxWithOutDashes(label: "Email"),
                     SizedBox(height: 15),
                     TextBoxWithOutDashes(label: "Password"),
-                    SizedBox(height: 10),
+                    SizedBox(height: 5),
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -80,7 +80,7 @@ class Login extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    SizedBox(height: 10),
 
                     ElevatedButton(
                       onPressed: () {},
@@ -101,7 +101,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
 
-                    SizedBox(height: 15),
+                    SizedBox(height: 10),
                     Text(
                       "Don’t have an account?",
                       style: GoogleFonts.raleway(
@@ -109,7 +109,6 @@ class Login extends StatelessWidget {
                         fontWeight: FontWeight.w400,
                       ),
                     ),
-                    SizedBox(height: 15),
                     TextButton(
                       onPressed: () {},
                       style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
