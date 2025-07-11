@@ -3,56 +3,125 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intership_first_task/Screens/answers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Questions extends StatelessWidget {
+import 'answerTabBar.dart';
+
+class Questions extends StatefulWidget {
   const Questions({super.key});
 
   @override
+  State<Questions> createState() => _QuestionsState();
+}
+
+class _QuestionsState extends State<Questions> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Questions",
-          style: GoogleFonts.raleway(
-            fontSize: 23.3,
-            fontWeight: FontWeight.bold,
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Questions",
+            style: GoogleFonts.raleway(
+              fontSize: 23.3,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: Icon(Icons.search, color: Colors.green, size: 35),
+            ),
+          ],
+
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              child: Container(
+                height: 45,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TabBar(
+
+                  indicator: BoxDecoration(
+                    color: Color(0xff339D44),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  dividerColor: Colors.transparent,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Color(0xffB4B4B4),
+                  labelStyle: GoogleFonts.raleway(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  unselectedLabelStyle: GoogleFonts.raleway(
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  tabs: const [
+                    Tab(text: "All"),
+                    Tab(text: "Pending"),
+                    Tab(text: "Answered"),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: Icon(Icons.search, color: Colors.green, size: 35),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
+        body: TabBarView(
           children: [
-            CustomProfileContainer(
-              name: "Fareeha Sadaqat",
-              secondText: "10 minutes ago",
-              caption: "I have an issue regarding this vehicle",
-              profileImage: "assets/images/questions_profile_1.jpg",
-              onboardingImages: [
-                "assets/images/questions.png",
-                "assets/images/questions.png",
-                "assets/images/questions.png",
-                "assets/images/questions.png",
-                "assets/images/questions.png",
-                "assets/images/questions.png",
-              ],
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  CustomProfileContainer(
+                    name: "Fareeha Sadaqat",
+                    secondText: "10 minutes ago",
+                    caption: "I have an issue regarding this vehicle",
+                    profileImage: "assets/images/questions_profile_1.jpg",
+                    onboardingImages: [
+                      "assets/images/questions.png",
+                      "assets/images/questions.png",
+                      "assets/images/questions.png",
+                      "assets/images/questions.png",
+                      "assets/images/questions.png",
+                      "assets/images/questions.png",
+                    ],
+                  ),
+                  CustomProfileContainer(
+                    name: "Muhammad Ali Nizami",
+                    secondText: "10 minutes ago",
+                    caption:
+                        "What is the process of purchasing Vehicle from hardware store?",
+                    profileImage: "assets/images/questions_profile_2.jpg",
+                  ),
+                  CustomProfileContainer(
+                    name: "Masab Mehmood",
+                    secondText: "15 minutes ago",
+                    caption:
+                        "What is the process of purchasing Vehicle from hardware store?",
+                    profileImage: "assets/images/questions_profile_4.jpg",
+                  ),
+                  CustomProfileContainer(
+                    name: "Janat Mehmood",
+                    secondText: "10 minutes ago",
+                    caption:
+                        "What is the process of purchasing Vehicle from hardware store?",
+                    profileImage: "assets/images/questions_profile_3.jpg",
+                  ),
+                ],
+              ),
             ),
-            CustomProfileContainer(name: "Muhammad Ali Nizami", secondText: "10 minutes ago", caption: "What is the process of purchasing Vehicle from hardware store?", profileImage: "assets/images/questions_profile_2.jpg"),
-            CustomProfileContainer(name: "Masab Mehmood", secondText: "15 minutes ago", caption: "What is the process of purchasing Vehicle from hardware store?", profileImage: "assets/images/questions_profile_4.jpg"),
-            CustomProfileContainer(name: "Janat Mehmood", secondText: "10 minutes ago", caption: "What is the process of purchasing Vehicle from hardware store?", profileImage: "assets/images/questions_profile_3.jpg"),
-
-
+            Center(child: Text("Screen Not Available in Figma", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+            AnsweredTabBar(),
           ],
         ),
       ),
     );
   }
 }
-
 
 class CustomProfileContainer extends StatefulWidget {
   final String name;
@@ -104,28 +173,42 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.name,
-                        style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        )),
-                    Text(widget.secondText,
-                        style: GoogleFonts.raleway(
-                          fontSize: 11,
-                          color: Colors.grey,
-                        )),
+                    Text(
+                      widget.name,
+                      style: GoogleFonts.raleway(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 15,
+                      ),
+                    ),
+                    Text(
+                      widget.secondText,
+                      style: GoogleFonts.raleway(
+                        fontSize: 11,
+                        color: Colors.grey,
+                      ),
+                    ),
                   ],
                 ),
                 const Spacer(),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Answers()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AnswersNavigator(
+                          name: widget.name,
+                          secondText: widget.secondText,
+                          caption: widget.caption,
+                          profileImage: widget.profileImage,
+                          onboardingImages: widget.onboardingImages ?? [],
+                        ),
+                      ),
+                    );
                   },
-                  child: Text("Answer",
-                      style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 11,
-                      )),
+                  child: Text(
+                    "Answer",
+                    style: TextStyle(color: Colors.green, fontSize: 11),
+                  ),
                 ),
               ],
             ),
@@ -133,7 +216,13 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
           SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
-            child: Text(widget.caption.toString(), style: GoogleFonts.raleway(fontSize: 13.13, fontWeight: FontWeight.w500)),
+            child: Text(
+              widget.caption.toString(),
+              style: GoogleFonts.raleway(
+                fontSize: 13.13,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
 
           if (widget.onboardingImages != null &&
@@ -183,8 +272,6 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
   }
 }
 
-
-
 class OnBoardingImage extends StatelessWidget {
   OnBoardingImage({super.key});
 
@@ -197,6 +284,7 @@ class OnBoardingImage extends StatelessWidget {
     "assets/images/questions.png",
     "assets/images/questions.png",
   ];
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -229,12 +317,78 @@ class OnBoardingImage extends StatelessWidget {
                 dotHeight: 10,
                 dotWidth: 10,
                 activeDotColor: Colors.white,
-                dotColor: Colors.white54
+                dotColor: Colors.white54,
               ),
             ),
           ),
         ),
       ],
+    );
+  }
+}
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: TopBarExample());
+  }
+}
+
+class TopBarExample extends StatefulWidget {
+  @override
+  _TopBarExampleState createState() => _TopBarExampleState();
+}
+
+class _TopBarExampleState extends State<TopBarExample> {
+  int selectedIndex = 0;
+
+  final List<Widget> screens = [
+    Center(child: Text("Home Screen", style: TextStyle(fontSize: 25))),
+    Center(child: Text("Profile Screen", style: TextStyle(fontSize: 25))),
+    Center(child: Text("Settings Screen", style: TextStyle(fontSize: 25))),
+  ];
+
+  void onButtonPressed(int index) {
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  Widget buildButton(String text, int index) {
+    return Expanded(
+      child: ElevatedButton(
+        onPressed: () => onButtonPressed(index),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: selectedIndex == index ? Colors.blue : Colors.grey,
+        ),
+        child: Text(text),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Top Button Navigation")),
+      body: Column(
+        children: [
+          Row(
+            children: [
+              buildButton("Home", 0),
+              buildButton("Profile", 1),
+              buildButton("Settings", 2),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              color: Colors.grey[200],
+              child: screens[selectedIndex],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
