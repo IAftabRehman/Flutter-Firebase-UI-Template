@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Data/Models/onboardingModel.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../Data/Models/onboardingModel.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({super.key});

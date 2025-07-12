@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intership_first_task/Screens/questions.dart';
+import 'package:intership_first_task/Screens/video.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeDashboard extends StatefulWidget {
@@ -208,7 +209,7 @@ class CustomeBottomBar extends StatelessWidget {
           item: ItemConfig(icon: Icon(Icons.question_mark), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
-          screen: Text("Video Screen"),
+          screen: Video(),
           item: ItemConfig(icon: Icon(Icons.video_call), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(

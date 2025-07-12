@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intership_first_task/Screens/homeDashboard.dart';
 
+
 void main() {
   runApp(const MyApp());
 }
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: CustomeBottomBar(),
+      home: HomeDashboard(),
     );
   }
 }

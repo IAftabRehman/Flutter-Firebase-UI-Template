@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intership_first_task/Screens/answers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'answerTabBar.dart';
 
 class Questions extends StatefulWidget {
@@ -13,6 +12,8 @@ class Questions extends StatefulWidget {
 }
 
 class _QuestionsState extends State<Questions> {
+  bool isSearching = false;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -28,12 +29,22 @@ class _QuestionsState extends State<Questions> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Icon(Icons.search, color: Colors.green, size: 35),
-            ),
+              padding: const EdgeInsets.only(right: 10),
+              child: IconButton(
+                onPressed: () {
+                  setState(() {
+                    isSearching = !isSearching; // Toggle state
+                  });
+                },
+                icon: Icon(
+                  isSearching ? Icons.close : Icons.search,
+                  color: Colors.green,
+                  size: 35,
+                ),
+              ),)
           ],
 
-          bottom: PreferredSize(
+          bottom: !isSearching ? PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
@@ -69,7 +80,26 @@ class _QuestionsState extends State<Questions> {
                 ),
               ),
             ),
-          ),
+          ) :
+          PreferredSize(
+            preferredSize: Size.fromHeight(60),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
+              child: TextField(
+                // controller: searchController,
+                onChanged: (value) {
+                  // Do filtering or API call here
+                },
+                decoration: InputDecoration(
+                  hintText: "Search it",
+                  contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+              ),
+            ),
+          )
         ),
         body: TabBarView(
           children: [
