@@ -63,7 +63,7 @@ class ForgotPassword extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 30),
-                        TextBoxWithOutDashes(label: "Forgot Password"),
+                        TextBoxWithOutDashes(label: "Email", controller: null),
                         SizedBox(height: 10),
                         SizedBox(height: 15),
                       ],

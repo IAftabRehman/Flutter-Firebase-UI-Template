@@ -37,157 +37,159 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
               MaterialPageRoute(builder: (context) => Questions()),
             );
           },
-          icon: Icon(Icons.arrow_left, size: 45, color: Colors.green),
+          icon: Icon(Icons.arrow_back, size: 30, color: Colors.green),
         ),
         title: Text(
           "Answer",
           style: GoogleFonts.raleway(fontSize: 25, fontWeight: FontWeight.w700),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 5)],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Row(
-                children: [
-                  ClipOval(
-                    child: Image.asset(
-                      widget.profileImage,
-                      height: 25,
-                      width: 25,
-                      fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 5)],
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Row(
+                  children: [
+                    ClipOval(
+                      child: Image.asset(
+                        widget.profileImage,
+                        height: 25,
+                        width: 25,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                  ),
-                  const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: GoogleFonts.raleway(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
-                      ),
-                      Text(
-                        widget.secondText,
-                        style: GoogleFonts.raleway(
-                          fontSize: 11,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AnswersNavigator(
-                            name: widget.name,
-                            secondText: widget.secondText,
-                            caption: widget.caption,
-                            profileImage: widget.profileImage,
-                            onboardingImages: [],
+                    const SizedBox(width: 10),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.name,
+                          style: GoogleFonts.raleway(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 15,
                           ),
                         ),
-                      );
-                    },
-                    child: Text(
-                      "Answer",
-                      style: TextStyle(color: Colors.green, fontSize: 11),
+                        Text(
+                          widget.secondText,
+                          style: GoogleFonts.raleway(
+                            fontSize: 11,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: Text(
-                widget.caption.toString(),
-                style: GoogleFonts.raleway(
-                  fontSize: 13.13,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-
-            if (widget.onboardingImages != null &&
-                widget.onboardingImages!.isNotEmpty)
-              const SizedBox(height: 10),
-
-            if (widget.onboardingImages != null &&
-                widget.onboardingImages!.isNotEmpty)
-              Stack(
-                children: [
-                  SizedBox(
-                    height: 200,
-                    child: PageView.builder(
-                      controller: _controller,
-                      itemCount: widget.onboardingImages!.length,
-                      itemBuilder: (context, i) {
-                        return Image.asset(
-                          widget.onboardingImages![i],
-                          fit: BoxFit.cover,
-                          width: double.infinity,
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AnswersNavigator(
+                              name: widget.name,
+                              secondText: widget.secondText,
+                              caption: widget.caption,
+                              profileImage: widget.profileImage,
+                              onboardingImages: [],
+                            ),
+                          ),
                         );
                       },
+                      child: Text(
+                        "Answer",
+                        style: TextStyle(color: Colors.green, fontSize: 11),
+                      ),
                     ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                child: Text(
+                  widget.caption.toString(),
+                  style: GoogleFonts.raleway(
+                    fontSize: 13.13,
+                    fontWeight: FontWeight.w500,
                   ),
-                  Positioned(
-                    bottom: 10,
-                    left: 0,
-                    right: 0,
-                    child: Center(
-                      child: SmoothPageIndicator(
+                ),
+              ),
+        
+              if (widget.onboardingImages != null &&
+                  widget.onboardingImages!.isNotEmpty)
+                const SizedBox(height: 10),
+        
+              if (widget.onboardingImages != null &&
+                  widget.onboardingImages!.isNotEmpty)
+                Stack(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                      child: PageView.builder(
                         controller: _controller,
-                        count: widget.onboardingImages!.length,
-                        effect: const SwapEffect(
-                          dotHeight: 10,
-                          dotWidth: 10,
-                          activeDotColor: Colors.white,
-                          dotColor: Colors.white54,
+                        itemCount: widget.onboardingImages!.length,
+                        itemBuilder: (context, i) {
+                          return Image.asset(
+                            widget.onboardingImages![i],
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                          );
+                        },
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 10,
+                      left: 0,
+                      right: 0,
+                      child: Center(
+                        child: SmoothPageIndicator(
+                          controller: _controller,
+                          count: widget.onboardingImages!.length,
+                          effect: const SwapEffect(
+                            dotHeight: 10,
+                            dotWidth: 10,
+                            activeDotColor: Colors.white,
+                            dotColor: Colors.white54,
+                          ),
                         ),
                       ),
                     ),
+                  ],
+                ),
+              SizedBox(height: 10),
+              TextFormField(
+                minLines: 5,
+                maxLines: 10,
+                style: TextStyle(color: Colors.grey),
+                cursorColor: Colors.green,
+                decoration: InputDecoration(
+                  labelStyle: TextStyle(color: Colors.green),
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  hintText: "Enter Your Answer",
+                  hintStyle: TextStyle(color: Colors.grey),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ],
-              ),
-            SizedBox(height: 10),
-            TextFormField(
-              minLines: 5,
-              maxLines: 10,
-              style: TextStyle(color: Colors.grey),
-              cursorColor: Colors.green,
-              decoration: InputDecoration(
-                labelStyle: TextStyle(color: Colors.green),
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                hintText: "Enter Your Answer",
-                hintStyle: TextStyle(color: Colors.grey),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.grey),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.green, width: 2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                contentPadding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 20,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 20,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

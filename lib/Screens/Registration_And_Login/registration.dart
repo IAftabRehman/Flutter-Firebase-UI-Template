@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/registration2.dart';
 import '../../Widgets/textBox_Widget.dart';
 
 
-class Registration extends StatelessWidget {
+class Registration extends StatefulWidget {
   const Registration({super.key});
+
+  @override
+  State<Registration> createState() => _RegistrationState();
+}
+
+class _RegistrationState extends State<Registration> {
+  TextEditingController name = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,17 +75,20 @@ class Registration extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 15),
-                    TextBoxWithOutDashes(label: "Name"),
+                    TextBoxWithOutDashes(label: "Name", controller: name),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Email"),
+                    TextBoxWithOutDashes(label: "Email", controller: email),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Password"),
+                    TextBoxWithOutDashes(label: "Password", controller: password),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Confirm Password"),
+                    TextBoxWithOutDashes(label: "Confirm Password", controller: confirmPassword),
                     SizedBox(height: 25),
 
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Registration2()));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF339D44),
                         minimumSize: Size(double.infinity, 50),
@@ -101,7 +116,9 @@ class Registration extends StatelessWidget {
                     ),
 
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                      },
                       style: TextButton.styleFrom(
                         padding: EdgeInsets.all(0)
                       ),
@@ -125,39 +142,42 @@ class Registration extends StatelessWidget {
   }
 }
 
-class ReUsableContainer extends StatelessWidget {
-  final String label;
-  // final String controller;
 
-  const ReUsableContainer({super.key, required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 65,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.green, width: 1.0),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        child: Center(
-          child: TextFormField(
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.done,
-            style: TextStyle(fontSize: 18, color: Colors.black),
-            cursorColor: Colors.blue,
-            textAlign: TextAlign.left,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              labelText: label,
-              labelStyle: TextStyle(color: Colors.green, fontSize: 13),
-              hintStyle: TextStyle(fontSize: 17),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
+//
+// class ReUsableContainer extends StatelessWidget {
+//   final String label;
+//   final TextEditingController controller;
+//
+//   ReUsableContainer({super.key, required this.label, required this.controller});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(
+//       height: 65,
+//       width: double.infinity,
+//       decoration: BoxDecoration(
+//         borderRadius: BorderRadius.circular(10),
+//         border: Border.all(color: Colors.green, width: 1.0),
+//       ),
+//       child: Padding(
+//         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//         child: Center(
+//           child: TextFormField(
+//             controller: controller,
+//             keyboardType: TextInputType.text,
+//             textInputAction: TextInputAction.done,
+//             style: TextStyle(fontSize: 18, color: Colors.black),
+//             cursorColor: Colors.blue,
+//             textAlign: TextAlign.left,
+//             decoration: InputDecoration(
+//               border: InputBorder.none,
+//               labelText: label,
+//               labelStyle: TextStyle(color: Colors.green, fontSize: 13),
+//               hintStyle: TextStyle(fontSize: 17),
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

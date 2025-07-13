@@ -41,65 +41,75 @@ class _QuestionsState extends State<Questions> {
                   color: Colors.green,
                   size: 35,
                 ),
-              ),)
+              ),
+            ),
           ],
 
-          bottom: !isSearching ? PreferredSize(
-            preferredSize: Size.fromHeight(60),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: Container(
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
+          bottom: !isSearching
+              ? PreferredSize(
+                  preferredSize: Size.fromHeight(60),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
+                    child: Container(
+                      height: 45,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TabBar(
+                        indicator: BoxDecoration(
+                          color: Color(0xff339D44),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        dividerColor: Colors.transparent,
+                        indicatorSize: TabBarIndicatorSize.tab,
+                        labelColor: Colors.white,
+                        unselectedLabelColor: Color(0xffB4B4B4),
+                        labelStyle: GoogleFonts.raleway(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        unselectedLabelStyle: GoogleFonts.raleway(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
+                        tabs: const [
+                          Tab(text: "All"),
+                          Tab(text: "Pending"),
+                          Tab(text: "Answered"),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : PreferredSize(
+                  preferredSize: Size.fromHeight(60),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 0,
+                    ),
+                    child: TextField(
+                      // controller: searchController,
+                      onChanged: (value) {
+                        // Do filtering or API call here
+                      },
+                      decoration: InputDecoration(
+                        hintText: "Search it",
+                        contentPadding: EdgeInsets.symmetric(
+                          vertical: 18,
+                          horizontal: 10,
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                child: TabBar(
-
-                  indicator: BoxDecoration(
-                    color: Color(0xff339D44),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  dividerColor: Colors.transparent,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Color(0xffB4B4B4),
-                  labelStyle: GoogleFonts.raleway(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  unselectedLabelStyle: GoogleFonts.raleway(
-                    fontSize: 16,
-                    fontWeight: FontWeight.normal,
-                  ),
-                  tabs: const [
-                    Tab(text: "All"),
-                    Tab(text: "Pending"),
-                    Tab(text: "Answered"),
-                  ],
-                ),
-              ),
-            ),
-          ) :
-          PreferredSize(
-            preferredSize: Size.fromHeight(60),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
-              child: TextField(
-                // controller: searchController,
-                onChanged: (value) {
-                  // Do filtering or API call here
-                },
-                decoration: InputDecoration(
-                  hintText: "Search it",
-                  contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-            ),
-          )
         ),
         body: TabBarView(
           children: [
@@ -144,7 +154,12 @@ class _QuestionsState extends State<Questions> {
                 ],
               ),
             ),
-            Center(child: Text("Screen Not Available in Figma", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),)),
+            Center(
+              child: Text(
+                "Screen Not Available in Figma",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
             AnsweredTabBar(),
           ],
         ),

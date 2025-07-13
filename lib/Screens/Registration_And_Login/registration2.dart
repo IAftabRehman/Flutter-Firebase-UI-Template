@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
 import '../../Widgets/textBox_Widget.dart';
 
 class Registration2 extends StatefulWidget {
@@ -52,7 +54,7 @@ class _Registration2State extends State<Registration2> {
                 SizedBox(height: 15),
                 ExpertiseDropdownField(),
                 SizedBox(height: 15),
-                TextBoxWithOutDashes(label: "Qualification"),
+                TextBoxWithOutDashes(label: "Qualification", controller: null),
                 SizedBox(height: 15),
                 ReUsableContainerWithDashes(label: "Upload Latest Degree"),
                 SizedBox(height: 15),
@@ -91,7 +93,7 @@ class _Registration2State extends State<Registration2> {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextBoxWithOutDashes(label: "Contact"),
+                TextBoxWithOutDashes(label: "Contact", controller: null),
                 SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: () {
@@ -128,7 +130,9 @@ class _Registration2State extends State<Registration2> {
                                 ),
                                 SizedBox(height: 20),
                                 ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: Color(0xff339D44),
                                     minimumSize: Size(double.infinity, 50),
@@ -168,7 +172,9 @@ class _Registration2State extends State<Registration2> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()));
+                  },
                   child: Text(
                     "Back",
                     style: GoogleFonts.raleway(

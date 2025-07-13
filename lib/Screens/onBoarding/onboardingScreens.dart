@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Data/Models/onboardingModel.dart';
 
@@ -117,7 +118,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Registration()));
+        },
         backgroundColor: Colors.white,
         elevation: 0,
         child: Text(

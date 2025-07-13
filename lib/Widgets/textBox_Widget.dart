@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 class TextBoxWithOutDashes extends StatelessWidget {
   final String label;
-  // final String controller;
-  const TextBoxWithOutDashes({super.key, required this.label});
+  final TextEditingController? controller;
+  const TextBoxWithOutDashes({super.key, required this.label, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       style: TextStyle(color: Colors.grey),
       cursorColor: Colors.green,
       decoration: InputDecoration(

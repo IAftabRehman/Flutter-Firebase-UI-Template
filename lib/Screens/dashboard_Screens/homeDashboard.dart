@@ -198,7 +198,9 @@ class ReUsableContainer extends StatelessWidget {
   }
 }
 
-class CustomeBottomBar extends StatelessWidget {
+class CustomBottomBarWiget extends StatelessWidget {
+  const CustomBottomBarWiget({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PersistentTabView(

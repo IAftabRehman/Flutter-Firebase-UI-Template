@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/forgotPassword.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:intership_first_task/Screens/dashboard_Screens/homeDashboard.dart';
 import '../../Widgets/textBox_Widget.dart';
 
 class Login extends StatelessWidget {
@@ -61,14 +64,21 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 30),
-                    TextBoxWithOutDashes(label: "Email"),
+                    TextBoxWithOutDashes(label: "Email", controller: null,),
                     SizedBox(height: 15),
-                    TextBoxWithOutDashes(label: "Password"),
+                    TextBoxWithOutDashes(label: "Password", controller: null,),
                     SizedBox(height: 5),
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ForgotPassword(),
+                            ),
+                          );
+                        },
                         child: Text(
                           "Forgot Password?",
                           style: GoogleFonts.raleway(
@@ -82,7 +92,14 @@ class Login extends StatelessWidget {
                     SizedBox(height: 10),
 
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CustomBottomBarWiget(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF339D44),
                         minimumSize: Size(double.infinity, 60),
@@ -109,7 +126,14 @@ class Login extends StatelessWidget {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Registration(),
+                          ),
+                        );
+                      },
                       style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                       child: Text(
                         "Sign Up",

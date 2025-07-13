@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/dashboard_Screens/video.dart';
 
 import '../../Widgets/textBox_Widget.dart';
 
@@ -52,7 +53,7 @@ class _AddVideoState extends State<AddVideo> {
                   SizedBox(height: height * 0.015),
                   ReUsableContainerWithDashes(label: 'Upload Thumbnails'),
                   SizedBox(height: height * 0.015),
-                  TextBoxWithOutDashes(label: "Title"),
+                  TextBoxWithOutDashes(label: "Title", controller: null),
                   SizedBox(height: height * 0.015),
                   TextFormField(
                     maxLines: 10,
@@ -117,7 +118,9 @@ class _AddVideoState extends State<AddVideo> {
                                   ),
                                   SizedBox(height: 20),
                                   ElevatedButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Video()));
+                                    },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color(0xff339D44),
                                       minimumSize: Size(double.infinity, 50),
