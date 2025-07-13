@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/questions.dart';
-import 'package:intership_first_task/Screens/video.dart';
+import 'package:intership_first_task/Screens/dashboard_Screens/profile.dart';
+import 'package:intership_first_task/Screens/dashboard_Screens/questions.dart';
+import 'package:intership_first_task/Screens/dashboard_Screens/video.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
+
+import 'comments.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -210,14 +213,14 @@ class CustomeBottomBar extends StatelessWidget {
         ),
         PersistentTabConfig(
           screen: Video(),
-          item: ItemConfig(icon: Icon(Icons.video_call), activeForegroundColor: Colors.green),
+          item: ItemConfig(icon: Icon(Icons.play_circle_outline), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
-          screen: Text("Comments"),
+          screen: Comments(),
           item: ItemConfig(icon: Icon(Icons.comment_outlined), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
-          screen: Text("Profile"),
+          screen: Profile(),
           item: ItemConfig(icon: Icon(Icons.person), activeForegroundColor: Colors.green),
         ),
       ],

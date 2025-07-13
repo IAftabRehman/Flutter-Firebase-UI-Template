@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intership_first_task/Screens/homeDashboard.dart';
+import 'Screens/onBoarding/splashScreen.dart';
+
 
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: HomeDashboard(),
+      home: SplashScreen(),
     );
   }
 }

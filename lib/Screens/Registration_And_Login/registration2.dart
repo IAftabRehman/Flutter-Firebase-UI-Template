@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../Widgets/textBox_Widget.dart';
+import '../../Widgets/textBox_Widget.dart';
 
 class Registration2 extends StatefulWidget {
   const Registration2({super.key});

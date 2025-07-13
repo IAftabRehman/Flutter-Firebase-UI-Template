@@ -1,9 +1,29 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  Future<void> movingScreen() async{
+    await Future.delayed(Duration(seconds: 3));
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Registration()));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    movingScreen();
+  }
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;

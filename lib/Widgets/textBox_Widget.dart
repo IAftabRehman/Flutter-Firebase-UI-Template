@@ -55,7 +55,7 @@ class ReUsableContainerWithDashes extends StatelessWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               labelText: label,
-              labelStyle: TextStyle(color: Color(0xffD4D4D4), fontSize: 13),
+              labelStyle: TextStyle(color: Colors.black, fontSize: 13),
               hintStyle: TextStyle(fontSize: 17),
               suffixIcon: Icon(Icons.upload, color: Colors.green, size: 30),
             ),

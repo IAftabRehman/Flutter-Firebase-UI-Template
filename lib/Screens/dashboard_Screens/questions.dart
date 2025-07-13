@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/answers.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'answerTabBar.dart';
+import 'answers.dart';
 
 class Questions extends StatefulWidget {
   const Questions({super.key});
