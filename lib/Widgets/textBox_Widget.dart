@@ -34,8 +34,9 @@ class TextBoxWithOutDashes extends StatelessWidget {
 
 class ReUsableContainerWithDashes extends StatelessWidget {
   final String label;
+  final TextEditingController? controller;
 
-  const ReUsableContainerWithDashes({super.key, required this.label});
+  const ReUsableContainerWithDashes({super.key, required this.label, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class ReUsableContainerWithDashes extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: Center(
           child: TextFormField(
+            controller: controller,
             keyboardType: TextInputType.text,
             style: TextStyle(fontSize: 18, color: Colors.black),
             cursorColor: Colors.blue,

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Data/Models/registrationModel.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/registration2.dart';
+import '../../Data/Services/RegistrationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
-
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -13,6 +14,7 @@ class Registration extends StatefulWidget {
 }
 
 class _RegistrationState extends State<Registration> {
+  bool isLoading = false;
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -79,32 +81,98 @@ class _RegistrationState extends State<Registration> {
                     SizedBox(height: 10),
                     TextBoxWithOutDashes(label: "Email", controller: email),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Password", controller: password),
+                    TextBoxWithOutDashes(
+                      label: "Password",
+                      controller: password,
+                    ),
                     SizedBox(height: 10),
-                    TextBoxWithOutDashes(label: "Confirm Password", controller: confirmPassword),
+                    TextBoxWithOutDashes(
+                      label: "Confirm Password",
+                      controller: confirmPassword,
+                    ),
                     SizedBox(height: 25),
 
-                    ElevatedButton(
-                      onPressed: () {
-
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Registration2()));
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF339D44),
-                        minimumSize: Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Next",
-                        style: GoogleFonts.raleway(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+                    isLoading
+                        ? Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: () async {
+                              if (name.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Name can't be empty"),
+                                  ),
+                                );
+                                return;
+                              }
+                              if (email.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Email can't be empty"),
+                                  ),
+                                );
+                                return;
+                              }
+                              if (password.text.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Password can't be empty"),
+                                  ),
+                                );
+                                return;
+                              }
+                              if (password.text != confirmPassword.text) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text("Password Not Matching"),
+                                  ),
+                                );
+                                return;
+                              }
+                              try {
+                                isLoading = true;
+                                setState(() {});
+                                await RegistrationServices()
+                                    .createAccount(
+                                      RegistrationModel(
+                                        name: name.text,
+                                        email: email.text,
+                                        password: password.text,
+                                        docId: DateTime.now()
+                                            .millisecondsSinceEpoch.toString(),
+                                      ),
+                                    )
+                                    .then((val) {
+                                      isLoading = false;
+                                      setState(() {});
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Registration2(),
+                                        ),
+                                      );
+                                    });
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF339D44),
+                              minimumSize: Size(double.infinity, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              "Next",
+                              style: GoogleFonts.raleway(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
 
                     SizedBox(height: 10),
                     Text(
@@ -117,17 +185,18 @@ class _RegistrationState extends State<Registration> {
 
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => Login()),
+                        );
                       },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(0)
-                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.all(0)),
                       child: Text(
                         "Login",
                         style: GoogleFonts.raleway(
                           fontSize: 27.65,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF339D44)
+                          color: Color(0xFF339D44),
                         ),
                       ),
                     ),
@@ -141,7 +210,6 @@ class _RegistrationState extends State<Registration> {
     );
   }
 }
-
 
 //
 // class ReUsableContainer extends StatelessWidget {

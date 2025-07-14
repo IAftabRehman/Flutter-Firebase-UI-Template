@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intership_first_task/Data/Models/registrationModel.dart';
+import 'package:intership_first_task/Data/Services/RegistrationServices.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
 import '../../Widgets/textBox_Widget.dart';
@@ -12,6 +15,12 @@ class Registration2 extends StatefulWidget {
 }
 
 class _Registration2State extends State<Registration2> {
+  bool isLoading = false;
+  TextEditingController profileImage = TextEditingController();
+  TextEditingController qualification = TextEditingController();
+  TextEditingController latestDegree = TextEditingController();
+  TextEditingController address = TextEditingController();
+  TextEditingController contact = TextEditingController();
   final List<String> expertiseOptions = [
     'Flutter',
     'Python',
@@ -22,7 +31,7 @@ class _Registration2State extends State<Registration2> {
     'Data Entry',
   ];
 
-  String? selectedExpertise;
+  String? expertise;
 
   @override
   Widget build(BuildContext context) {
@@ -50,13 +59,28 @@ class _Registration2State extends State<Registration2> {
                   ),
                 ),
                 SizedBox(height: 20),
-                ReUsableContainerWithDashes(label: "Upload Profile Image"),
+                ReUsableContainerWithDashes(
+                  label: "Upload Profile Image",
+                  controller: profileImage,
+                ),
                 SizedBox(height: 15),
-                ExpertiseDropdownField(),
+                ExpertiseDropdownField(
+                  onChanged: (value) {
+                    setState(() {
+                      expertise = value;
+                    });
+                  },
+                ),
                 SizedBox(height: 15),
-                TextBoxWithOutDashes(label: "Qualification", controller: null),
+                TextBoxWithOutDashes(
+                  label: "Qualification",
+                  controller: qualification,
+                ),
                 SizedBox(height: 15),
-                ReUsableContainerWithDashes(label: "Upload Latest Degree"),
+                ReUsableContainerWithDashes(
+                  label: "Upload Latest Degree",
+                  controller: latestDegree,
+                ),
                 SizedBox(height: 15),
                 Container(
                   height: 110,
@@ -72,6 +96,7 @@ class _Registration2State extends State<Registration2> {
                     ),
                     child: Center(
                       child: TextFormField(
+                        controller: address,
                         keyboardType: TextInputType.multiline,
                         minLines: 3,
                         maxLines: 3,
@@ -93,87 +118,133 @@ class _Registration2State extends State<Registration2> {
                   ),
                 ),
                 SizedBox(height: 15),
-                TextBoxWithOutDashes(label: "Contact", controller: null),
+                TextBoxWithOutDashes(label: "Contact", controller: contact),
                 SizedBox(height: 25),
-                ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      barrierDismissible: false,
-                      builder: (context) {
-                        return AlertDialog(
-                          content: SizedBox(
-                            height: 250,
-                            width: 400 ,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Icon(Icons.done_all, color: Colors.green, size: 50),
-                                SizedBox(height: 20),
-                                Text(
-                                  "Account Created",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 23.03,
-                                    fontWeight: FontWeight.w700,
-                                    color: Color(0xff292929),
+                isLoading
+                    ? Center(child: CircularProgressIndicator())
+                    : ElevatedButton(
+                        onPressed: () async {
+                          String? currentId =
+                              FirebaseAuth.instance.currentUser?.uid;
+                          try {
+                            isLoading = true;
+                            setState(() {});
+                            RegistrationServices()
+                                .createAccount(
+                                  RegistrationModel(
+                                    profileImage: profileImage.toString(),
+                                    expertise: expertise.toString(),
+                                    qualification: qualification.text,
+                                    latestDegree: latestDegree.toString(),
+                                    address: address.text,
+                                    contact: contact.text,
+                                    docId: currentId.toString(),
                                   ),
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "You can now access your account",
-                                  style: GoogleFonts.raleway(
-                                    fontSize: 13.33,
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xffB4B4B4),
-                                  ),
-                                ),
-                                SizedBox(height: 20),
-                                ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Login()));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0xff339D44),
-                                    minimumSize: Size(double.infinity, 50),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10)
-                                    )
-                                  ),
-                                  child: Text(
-                                    "Login",
-                                    style: GoogleFonts.raleway(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                )
+                                .then((val) {
+                                  isLoading = false;
+                                  setState(() {});
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: SizedBox(
+                                          height: 250,
+                                          width: 400,
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.done_all,
+                                                color: Colors.green,
+                                                size: 50,
+                                              ),
+                                              SizedBox(height: 20),
+                                              Text(
+                                                "Account Created",
+                                                style: GoogleFonts.raleway(
+                                                  fontSize: 23.03,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Color(0xff292929),
+                                                ),
+                                              ),
+                                              SizedBox(height: 10),
+                                              Text(
+                                                "You can now access your account",
+                                                style: GoogleFonts.raleway(
+                                                  fontSize: 13.33,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: Color(0xffB4B4B4),
+                                                ),
+                                              ),
+                                              SizedBox(height: 20),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => Login(),
+                                                    ),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Color(0xff339D44),
+                                                  minimumSize: Size(
+                                                    double.infinity,
+                                                    50,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(
+                                                      10,
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "Login",
+                                                  style: GoogleFonts.raleway(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                });
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text(e.toString())),
+                            );
+                          }
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xff339D44),
+                          minimumSize: Size(double.infinity, 55),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xff339D44),
-                    minimumSize: Size(double.infinity, 55),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: Text(
-                    "Next",
-                    style: GoogleFonts.raleway(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
+                        ),
+                        child: Text(
+                          "Next",
+                          style: GoogleFonts.raleway(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Registration()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Registration()),
+                    );
                   },
                   child: Text(
                     "Back",
@@ -193,10 +264,11 @@ class _Registration2State extends State<Registration2> {
   }
 }
 
-
-
-
 class ExpertiseDropdownField extends StatefulWidget {
+  final ValueChanged<String?> onChanged;
+
+  const ExpertiseDropdownField({super.key, required this.onChanged});
+
   @override
   _ExpertiseDropdownFieldState createState() => _ExpertiseDropdownFieldState();
 }
@@ -222,22 +294,18 @@ class _ExpertiseDropdownFieldState extends State<ExpertiseDropdownField> {
       decoration: InputDecoration(
         hintText: 'Your Expertise',
         hintStyle: TextStyle(color: Colors.grey),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
       ),
       isExpanded: true,
       icon: Icon(Icons.arrow_drop_down),
       items: _expertiseList.map((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
+        return DropdownMenuItem<String>(value: value, child: Text(value));
       }).toList(),
       onChanged: (String? newValue) {
         setState(() {
           _selectedExpertise = newValue;
         });
+        widget.onChanged(newValue);
       },
     );
   }

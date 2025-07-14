@@ -1,0 +1,2 @@
+*.dart linguist-detectable=true
+*.html linguist-detectable=false

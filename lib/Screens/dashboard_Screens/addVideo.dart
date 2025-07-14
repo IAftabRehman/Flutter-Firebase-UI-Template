@@ -49,9 +49,9 @@ class _AddVideoState extends State<AddVideo> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ReUsableContainerWithDashes(label: 'Upload Video'),
+                  ReUsableContainerWithDashes(label: 'Upload Video', controller: null),
                   SizedBox(height: height * 0.015),
-                  ReUsableContainerWithDashes(label: 'Upload Thumbnails'),
+                  ReUsableContainerWithDashes(label: 'Upload Thumbnails', controller: null),
                   SizedBox(height: height * 0.015),
                   TextBoxWithOutDashes(label: "Title", controller: null),
                   SizedBox(height: height * 0.015),

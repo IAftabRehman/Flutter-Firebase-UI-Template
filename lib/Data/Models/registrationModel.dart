@@ -8,7 +8,7 @@ class RegistrationModel {
   final String? name;
   final String? email;
   final String? password;
-  final int? docId;
+  final String? docId;
   final String? profileImage;
   final String? expertise;
   final String? qualification;

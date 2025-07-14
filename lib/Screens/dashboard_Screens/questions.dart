@@ -372,14 +372,14 @@ class OnBoardingImage extends StatelessWidget {
   }
 }
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(home: TopBarExample());
-  }
-}
+// void main() => runApp(MyApp());
+//
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(home: TopBarExample());
+//   }
+// }
 
 class TopBarExample extends StatefulWidget {
   @override
