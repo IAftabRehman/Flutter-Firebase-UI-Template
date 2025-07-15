@@ -37,7 +37,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
               MaterialPageRoute(builder: (context) => Questions()),
             );
           },
-          icon: Icon(Icons.arrow_back, size: 30, color: Colors.green),
+          icon: const Icon(Icons.arrow_back, size: 30, color: Colors.green),
         ),
         title: Text(
           "Answer",
@@ -102,7 +102,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         "Answer",
                         style: TextStyle(color: Colors.green, fontSize: 11),
                       ),
@@ -110,7 +110,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                   ],
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: Text(
@@ -163,26 +163,26 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                     ),
                   ],
                 ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               TextFormField(
                 minLines: 5,
                 maxLines: 10,
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
                 cursorColor: Colors.green,
                 decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Colors.green),
+                  labelStyle: const TextStyle(color: Colors.green),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   hintText: "Enter Your Answer",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderSide: const BorderSide(color: Colors.green, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  contentPadding: EdgeInsets.symmetric(
+                  contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 20,
                   ),

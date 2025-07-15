@@ -25,7 +25,7 @@ class _AnsweredTabBarState extends State<AnsweredTabBar> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("assets/images/no_data_found_1st.png"),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Text(
                   "No Data Found",
                   style: GoogleFonts.raleway(
@@ -34,7 +34,7 @@ class _AnsweredTabBarState extends State<AnsweredTabBar> {
                     color: Color(0xff292929),
                   ),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 40),
                   child: Text(

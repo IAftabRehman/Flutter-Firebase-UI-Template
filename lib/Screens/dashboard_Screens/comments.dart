@@ -10,7 +10,7 @@ class Comments extends StatelessWidget {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          leading: Icon(
+          leading: const Icon(
             Icons.keyboard_arrow_left,
             size: 30,
             color: Colors.green,
@@ -24,7 +24,7 @@ class Comments extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
               children: <TextSpan>[
-                TextSpan(
+                const TextSpan(
                   text: "(22)",
                   style: TextStyle(
                     color: Colors.green,
@@ -37,24 +37,23 @@ class Comments extends StatelessWidget {
           ),
 
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(60),
+            preferredSize: const Size.fromHeight(60),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Container(
                 height: 45,
                 decoration: BoxDecoration(
-                  // color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TabBar(
                   indicator: BoxDecoration(
-                    color: Color(0xff339D44),
+                    color: const Color(0xff339D44),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   dividerColor: Colors.transparent,
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelColor: Colors.white,
-                  unselectedLabelColor: Color(0xffB4B4B4),
+                  unselectedLabelColor: const  Color(0xffB4B4B4),
                   labelStyle: GoogleFonts.raleway(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -102,15 +101,15 @@ class Comments extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
-                  CustomCommentsWidget(
+                  const SizedBox(height: 10),
+                  const CustomCommentsWidget(
                     profile: "assets/images/questions_profile_1.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
                     comment:
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
+                  const Divider(height: 1.5),
                   CustomCommentsWidget(
                     profile: "assets/images/questions_profile_2.jpg",
                     name: "Aftab",
@@ -118,49 +117,49 @@ class Comments extends StatelessWidget {
                     comment:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
-                  CustomCommentsWidget(
+                  const Divider(height: 1.5),
+                  const CustomCommentsWidget(
                     profile: "assets/images/questions_profile_3.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
                     comment:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
-                  CustomCommentsWidget(
+                  const Divider(height: 1.5),
+                  const CustomCommentsWidget(
                     profile: "assets/images/questions_profile_4.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
                     comment:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
-                  CustomCommentsWidget(
+                  const Divider(height: 1.5),
+                  const CustomCommentsWidget(
                     profile: "assets/images/questions_profile_1.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
                     comment:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
-                  CustomCommentsWidget(
+                  const Divider(height: 1.5),
+                  const CustomCommentsWidget(
                     profile: "assets/images/questions_profile_2.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
                     comment:
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
-                  Divider(height: 1.5),
+                  const Divider(height: 1.5),
                 ],
               ),
             ),
-            Center(
+            const Center(
               child: Text(
                 "Screen Not Available in Figma",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
-            Center(
+            const Center(
               child: Text(
                 "Screen Not Available in Figma",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -209,7 +208,7 @@ class CustomCommentsWidget extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -230,7 +229,7 @@ class CustomCommentsWidget extends StatelessWidget {
                             ),
                           ),
 
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             comment,
                             style: GoogleFonts.raleway(fontSize: 11.5),

@@ -6,6 +6,7 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final keyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -24,9 +25,11 @@ class EditProfile extends StatelessWidget {
               Stack(
                 children: [
                   // Profile Picture
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 50, // adjust as needed
-                    backgroundImage: AssetImage("assets/images/questions_profile_1.jpg"),
+                    backgroundImage: AssetImage(
+                      "assets/images/questions_profile_1.jpg",
+                    ),
                   ),
 
                   // Positioned Pencil Icon
@@ -34,12 +37,12 @@ class EditProfile extends StatelessWidget {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.green,
                         shape: BoxShape.circle,
                       ),
-                      padding: EdgeInsets.all(6),
-                      child: Icon(
+                      padding: const EdgeInsets.all(6),
+                      child: const Icon(
                         Icons.edit, // pencil icon
                         size: 25,
                         color: Colors.white,
@@ -48,48 +51,62 @@ class EditProfile extends StatelessWidget {
                   ),
                 ],
               ),
-
-              SizedBox(height: 40),
+              const SizedBox(height: 35),
               TextFormField(
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
                 cursorColor: Colors.green,
                 decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Colors.green),
+                  labelStyle: const TextStyle(color: Colors.green),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   hintText: "Name",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderSide: const BorderSide(color: Colors.green, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 20,
+                  ),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 10),
               TextFormField(
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
                 cursorColor: Colors.green,
                 decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Colors.green),
+                  labelStyle: const TextStyle(color: Colors.green),
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   hintText: "Email",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey),
+                    borderSide: const BorderSide(color: Colors.grey),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green, width: 2),
+                    borderSide: const BorderSide(color: Colors.green, width: 2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 20,
+                  ),
                 ),
-              )
-
+              ),
+              keyboard ? const SizedBox(height: 20) : const Spacer(),
+              ElevatedButton(onPressed: (){},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xff339D44),
+                    minimumSize: Size(double.infinity, 50),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                  ),
+                  child: Text("Save Changes", style: GoogleFonts.raleway(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),))
             ],
           ),
         ),

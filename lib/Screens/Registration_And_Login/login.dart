@@ -3,14 +3,26 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/forgotPassword.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
 import 'package:intership_first_task/Screens/dashboard_Screens/homeDashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool isLoading = false;
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+    final keyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     return Scaffold(
       body: Stack(
         children: [
@@ -18,7 +30,7 @@ class Login extends StatelessWidget {
             top: 0,
             left: 0,
             right: 0,
-            height: height * 0.7,
+            height: keyboard ? height * 0.3 : height * 0.7,
             child: Image.asset(
               'assets/images/login_image.png',
               fit: BoxFit.fill,
@@ -26,12 +38,12 @@ class Login extends StatelessWidget {
           ),
 
           Positioned(
-            top: height * 0.4,
+            top: keyboard ? height * 0.1 : height * 0.4,
             left: 0,
             right: 0,
-            height: height * 0.75,
+            height: keyboard ?  height * 1 : height * 0.75,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -50,24 +62,26 @@ class Login extends StatelessWidget {
                       "Welcome Again!",
                       style: GoogleFonts.raleway(
                         fontSize: 23,
-                        color: Color(0xFF292929),
+                        color: const Color(0xFF292929),
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Text(
                       "Login to Access Your Account",
                       style: GoogleFonts.raleway(
                         fontWeight: FontWeight.w400,
                         fontSize: 13.33,
-                        color: Color(0xFF292929),
+                        color: const Color(0xFF292929),
                       ),
                     ),
-                    SizedBox(height: 30),
-                    TextBoxWithOutDashes(label: "Email", controller: null,),
-                    SizedBox(height: 15),
-                    TextBoxWithOutDashes(label: "Password", controller: null,),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 30),
+                    TextBoxWithOutDashes(label: "Email", controller: email),
+                    const SizedBox(height: 15),
+                    TextBoxWithOutDashes(
+                      label: "Password",
+                      controller: password,
+                    ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
@@ -84,40 +98,96 @@ class Login extends StatelessWidget {
                           style: GoogleFonts.raleway(
                             fontSize: 13.33,
                             fontWeight: FontWeight.w300,
-                            color: Color(0xFF339D44),
+                            color: const Color(0xFF339D44),
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 5),
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            onPressed: () {
+                              try {
+                                isLoading = true;
+                                setState(() {});
 
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => CustomBottomBarWiget(),
+                                if (email.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Email cannot be empty"),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                if (password.text.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Password cannot be empty"),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                isLoading = true;
+                                setState(() {});
+                                AuthenticationServices()
+                                    .loginUser(
+                                      email: email.text,
+                                      password: password.text,
+                                    )
+                                    .then((val) {
+                                      isLoading = false;
+                                      setState(() {});
+                                      if (true) {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: Text("Message"),
+                                              content: Text("LoggedIn"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            CustomBottomBarWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                  child: const Text("Next"),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    });
+                              } catch (e) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(e.toString())),
+                                );
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF339D44),
+                              minimumSize: Size(double.infinity, 60),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: Text(
+                              "Login",
+                              style: GoogleFonts.raleway(
+                                fontSize: 16,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                           ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF339D44),
-                        minimumSize: Size(double.infinity, 60),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: Text(
-                        "Login",
-                        style: GoogleFonts.raleway(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
 
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "Don’t have an account?",
                       style: GoogleFonts.raleway(
@@ -140,7 +210,7 @@ class Login extends StatelessWidget {
                         style: GoogleFonts.raleway(
                           fontSize: 27.65,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF339D44),
+                          color: const Color(0xFF339D44),
                         ),
                       ),
                     ),

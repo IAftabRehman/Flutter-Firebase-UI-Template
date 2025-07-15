@@ -4,7 +4,7 @@ import 'package:intership_first_task/Screens/dashboard_Screens/profile.dart';
 import 'package:intership_first_task/Screens/dashboard_Screens/questions.dart';
 import 'package:intership_first_task/Screens/dashboard_Screens/video.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'comments.dart';
 
 class HomeDashboard extends StatefulWidget {
@@ -16,8 +16,21 @@ class HomeDashboard extends StatefulWidget {
 
 class _HomeDashboardState extends State<HomeDashboard> {
   int selectedIndex = 0;
+  String? userName;
+  void getNameFromSharedPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userName = prefs.getString('name') ?? '';
+    });
+  }
 
-  List<Widget> screenList = [
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getNameFromSharedPreference();
+  }
+  List<Widget> screenList = const [
     Text("First"),
     Text("First"),
     Text("First"),
@@ -51,7 +64,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Aftab',
+                      text: userName,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -61,9 +74,9 @@ class _HomeDashboardState extends State<HomeDashboard> {
                 ),
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
-              Row(
+              const Row(
                 children: [
                   Expanded(
                     child: ReUsableContainer(
@@ -82,8 +95,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   ),
                 ],
               ),
-              SizedBox(height: 15),
-              Row(
+              const SizedBox(height: 15),
+              const Row(
                 children: [
                   Expanded(
                     child: ReUsableContainer(
@@ -113,7 +126,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
         },
         backgroundColor: Colors.red,
         currentIndex: selectedIndex,
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 40), label: ""),
           BottomNavigationBarItem(
             icon: Icon(Icons.question_mark_outlined, size: 40),
@@ -156,8 +169,8 @@ class ReUsableContainer extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Color(0xffFFFFFF),
-        boxShadow: [
+        color: const Color(0xffFFFFFF),
+        boxShadow: const [
           BoxShadow(
             color: Colors.black12,
             blurRadius: 8,
@@ -171,7 +184,7 @@ class ReUsableContainer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, size: 40, color: Color(0xffD4D4D4)),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -198,8 +211,8 @@ class ReUsableContainer extends StatelessWidget {
   }
 }
 
-class CustomBottomBarWiget extends StatelessWidget {
-  const CustomBottomBarWiget({super.key});
+class CustomBottomBarWidget extends StatelessWidget {
+  const CustomBottomBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -232,11 +245,11 @@ class CustomBottomBarWiget extends StatelessWidget {
 
         navBarDecoration: NavBarDecoration(
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
+          boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
         ),
 
-        itemAnimationProperties: ItemAnimation(
-          duration: const Duration(milliseconds: 400),
+        itemAnimationProperties: const ItemAnimation(
+          duration: Duration(milliseconds: 400),
           curve: Curves.easeInOut,
         ),
       ),

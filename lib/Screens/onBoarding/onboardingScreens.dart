@@ -33,7 +33,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     ),
   ];
 
-  PageController controller = PageController();
+  PageController  controller = PageController();
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +70,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                                   height: 300,
                                   width: 300,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF339D44).withOpacity(0.2),
+                                    color: const Color(0xFF339D44).withOpacity(0.2),
                                     borderRadius: BorderRadius.only(
                                       bottomLeft: Radius.circular(10),
                                     ),
@@ -105,7 +105,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 child: SmoothPageIndicator(
                   controller: controller, // PageController
                   count: onBoardingList.length,
-                  effect: SwapEffect(
+                  effect: const SwapEffect(
                     dotWidth: 10,
                     dotHeight: 10,
                     activeDotColor: Colors.green,
@@ -122,7 +122,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Registration()));
         },
         backgroundColor: Colors.white,
-        elevation: 0,
         child: Text(
           "Skip",
           style: GoogleFonts.raleway(fontSize: 13, color: Colors.green),

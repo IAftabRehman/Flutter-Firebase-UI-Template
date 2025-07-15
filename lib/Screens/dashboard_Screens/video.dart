@@ -55,13 +55,13 @@ class _VideoState extends State<Video> {
                 ),
                 child: TabBar(
                   indicator: BoxDecoration(
-                    color: Color(0xff339D44),
+                    color: const Color(0xff339D44),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   dividerColor: Colors.transparent,
                   indicatorSize: TabBarIndicatorSize.tab,
                   labelColor: Colors.white,
-                  unselectedLabelColor: Color(0xffB4B4B4),
+                  unselectedLabelColor: const Color(0xffB4B4B4),
                   labelStyle: GoogleFonts.raleway(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
@@ -89,7 +89,7 @@ class _VideoState extends State<Video> {
                 },
                 decoration: InputDecoration(
                   hintText: "Search it",
-                  contentPadding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 10),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -102,7 +102,7 @@ class _VideoState extends State<Video> {
           children: [
             SingleChildScrollView(
               child: Column(
-                children: [
+                children: const [
                   CustomVideoWidget(
                     caption: "How to Start A Tractor",
                     uploadDate: "15 mins ago",
@@ -120,7 +120,7 @@ class _VideoState extends State<Video> {
                 ],
               ),
             ),
-            Center(
+            const Center(
               child: Text(
                 "Screen Not Available in Figma",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -188,7 +188,7 @@ class CustomVideoWidget extends StatelessWidget {
                             children: <TextSpan>[
                               TextSpan(
                                 text: uploadDate,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
@@ -202,7 +202,7 @@ class CustomVideoWidget extends StatelessWidget {
                     const Spacer(),
                     IconButton(
                       onPressed: () {},
-                      icon: Icon(Icons.more_vert, size: 30),
+                      icon: const Icon(Icons.more_vert, size: 30),
                     ),
                   ],
                 ),
@@ -216,12 +216,12 @@ class CustomVideoWidget extends StatelessWidget {
                 SizedBox(height: height * 0.02),
                 Row(
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.remove_red_eye,
                       color: Color(0xffB4B4B4),
                       size: 25,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       "$views Views",
                       style: GoogleFonts.raleway(
@@ -229,13 +229,13 @@ class CustomVideoWidget extends StatelessWidget {
                         color: Color(0xffB4B4B4),
                       ),
                     ),
-                    SizedBox(width: 20),
-                    Icon(
+                    const SizedBox(width: 20),
+                    const Icon(
                       Icons.comment_outlined,
                       color: Color(0xffB4B4B4),
                       size: 25,
                     ),
-                    SizedBox(width: 5),
+                    const SizedBox(width: 5),
                     Text(
                       "$comments Comments",
                       style: GoogleFonts.raleway(
@@ -249,7 +249,7 @@ class CustomVideoWidget extends StatelessWidget {
             ),
           ),
         ),
-        Divider(
+        const Divider(
           thickness: 0.8,
           height: 1.5,
         )

@@ -111,7 +111,7 @@ class _QuestionsState extends State<Questions> {
                   ),
                 ),
         ),
-        body: TabBarView(
+        body: const TabBarView(
           children: [
             SingleChildScrollView(
               child: Column(
@@ -250,7 +250,7 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
                       ),
                     );
                   },
-                  child: Text(
+                  child: const Text(
                     "Answer",
                     style: TextStyle(color: Colors.green, fontSize: 11),
                   ),
@@ -258,7 +258,7 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
               ],
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Text(
@@ -321,7 +321,7 @@ class OnBoardingImage extends StatelessWidget {
   OnBoardingImage({super.key});
 
   final PageController controller = PageController();
-  final List<String> imagePaths = [
+  final List<String> imagePaths = const [
     "assets/images/questions.png",
     "assets/images/questions.png",
     "assets/images/questions.png",
@@ -372,16 +372,10 @@ class OnBoardingImage extends StatelessWidget {
   }
 }
 
-// void main() => runApp(MyApp());
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(home: TopBarExample());
-//   }
-// }
 
 class TopBarExample extends StatefulWidget {
+  const TopBarExample({super.key});
+
   @override
   _TopBarExampleState createState() => _TopBarExampleState();
 }
@@ -389,7 +383,7 @@ class TopBarExample extends StatefulWidget {
 class _TopBarExampleState extends State<TopBarExample> {
   int selectedIndex = 0;
 
-  final List<Widget> screens = [
+  final List<Widget> screens = const [
     Center(child: Text("Home Screen", style: TextStyle(fontSize: 25))),
     Center(child: Text("Profile Screen", style: TextStyle(fontSize: 25))),
     Center(child: Text("Settings Screen", style: TextStyle(fontSize: 25))),
@@ -416,7 +410,7 @@ class _TopBarExampleState extends State<TopBarExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Top Button Navigation")),
+      appBar: AppBar(title: const Text("Top Button Navigation")),
       body: Column(
         children: [
           Row(

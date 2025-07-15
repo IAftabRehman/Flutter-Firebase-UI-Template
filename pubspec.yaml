@@ -44,6 +44,7 @@ dependencies:
   cloud_firestore: ^5.6.11 #
   firebase_auth: ^5.6.2 # for firebase authentication
   flutter_dotenv: ^5.2.1 # for hiding API keys
+  shared_preferences: ^2.5.3 # for locally stored data
 
 dev_dependencies:
   flutter_test:

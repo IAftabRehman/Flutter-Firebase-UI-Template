@@ -14,6 +14,7 @@ class AddVideo extends StatefulWidget {
 class _AddVideoState extends State<AddVideo> {
   @override
   Widget build(BuildContext context) {
+    final keyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
@@ -28,7 +29,7 @@ class _AddVideoState extends State<AddVideo> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
+            keyboard ? SizedBox(height: 10) : Container(
               margin: EdgeInsets.all(5),
               height: height * 0.22,
               width: double.infinity,
@@ -36,7 +37,7 @@ class _AddVideoState extends State<AddVideo> {
                 borderRadius: BorderRadius.circular(10),
                 border: Border.all(width: 1),
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Preview",
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
@@ -58,22 +59,22 @@ class _AddVideoState extends State<AddVideo> {
                   TextFormField(
                     maxLines: 10,
                     minLines: 3,
-                    style: TextStyle(color: Colors.grey),
+                    style: const TextStyle(color: Colors.grey),
                     cursorColor: Colors.green,
                     decoration: InputDecoration(
-                      labelStyle: TextStyle(color: Colors.green),
+                      labelStyle: const TextStyle(color: Colors.green),
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       hintText: "Descriptions",
-                      hintStyle: TextStyle(color: Colors.grey),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey),
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      enabledBorder:  OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.grey),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green, width: 2),
+                        borderSide: const BorderSide(color: Colors.green, width: 2),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      contentPadding: EdgeInsets.symmetric(
+                      contentPadding: const EdgeInsets.symmetric(
                         horizontal: 16,
                         vertical: 20,
                       ),
@@ -93,12 +94,12 @@ class _AddVideoState extends State<AddVideo> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.done_all,
                                     color: Colors.green,
                                     size: 50,
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   Text(
                                     "Uploaded",
                                     style: GoogleFonts.raleway(
@@ -107,7 +108,7 @@ class _AddVideoState extends State<AddVideo> {
                                       color: Color(0xff292929),
                                     ),
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Text(
                                     "Video Uploaded",
                                     style: GoogleFonts.raleway(
@@ -116,7 +117,7 @@ class _AddVideoState extends State<AddVideo> {
                                       color: Color(0xffB4B4B4),
                                     ),
                                   ),
-                                  SizedBox(height: 20),
+                                  const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
                                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Video()));

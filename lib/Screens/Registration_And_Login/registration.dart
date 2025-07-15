@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Data/Models/registrationModel.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:intership_first_task/Screens/Registration_And_Login/registration2.dart';
-import '../../Data/Services/RegistrationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
 
 class Registration extends StatefulWidget {
@@ -22,6 +20,7 @@ class _RegistrationState extends State<Registration> {
 
   @override
   Widget build(BuildContext context) {
+    final keyboard = MediaQuery.of(context).viewInsets.bottom != 0;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -31,15 +30,16 @@ class _RegistrationState extends State<Registration> {
             top: 0,
             left: 0,
             right: 0,
-            height: height * 0.6,
+            height: keyboard ? height * 0.0 : height * 0.6,
             child: Image.asset(
               'assets/images/registration_image_1.png',
               fit: BoxFit.cover,
             ),
           ),
 
+
           Positioned(
-            top: height * 0.3,
+            top: keyboard ? height * 0.0: height * 0.3,
             left: 0,
             right: 0,
             height: height * 0.75,
@@ -67,33 +67,33 @@ class _RegistrationState extends State<Registration> {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                    SizedBox(height: 3),
+                    const SizedBox(height: 3),
                     Text(
                       "Login to Access Your Account",
                       style: GoogleFonts.raleway(
                         fontWeight: FontWeight.w400,
                         fontSize: 13.33,
-                        color: Color(0xFF292929),
+                        color: const Color(0xFF292929),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 10),
                     TextBoxWithOutDashes(label: "Name", controller: name),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextBoxWithOutDashes(label: "Email", controller: email),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextBoxWithOutDashes(
                       label: "Password",
                       controller: password,
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     TextBoxWithOutDashes(
                       label: "Confirm Password",
                       controller: confirmPassword,
                     ),
-                    SizedBox(height: 25),
+                    const SizedBox(height: 20),
 
                     isLoading
-                        ? Center(child: CircularProgressIndicator())
+                        ? const Center(child: CircularProgressIndicator())
                         : ElevatedButton(
                             onPressed: () async {
                               if (name.text.isEmpty) {
@@ -128,37 +128,20 @@ class _RegistrationState extends State<Registration> {
                                 );
                                 return;
                               }
-                              try {
-                                isLoading = true;
-                                setState(() {});
-                                await RegistrationServices()
-                                    .createAccount(
-                                      RegistrationModel(
-                                        name: name.text,
-                                        email: email.text,
-                                        password: password.text,
-                                        docId: DateTime.now()
-                                            .millisecondsSinceEpoch.toString(),
-                                      ),
-                                    )
-                                    .then((val) {
-                                      isLoading = false;
-                                      setState(() {});
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Registration2(),
-                                        ),
-                                      );
-                                    });
-                              } catch (e) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text(e.toString())),
-                                );
+
+                              try{
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Registration2(
+                                  name: name.text,
+                                  email: email.text,
+                                  password: password.text,
+                                )));
+                              }
+                              catch(e){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color(0xFF339D44),
+                              backgroundColor: const Color(0xFF339D44),
                               minimumSize: Size(double.infinity, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
@@ -174,7 +157,7 @@ class _RegistrationState extends State<Registration> {
                             ),
                           ),
 
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Text(
                       "Already have an account?",
                       style: GoogleFonts.raleway(
@@ -196,7 +179,7 @@ class _RegistrationState extends State<Registration> {
                         style: GoogleFonts.raleway(
                           fontSize: 27.65,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xFF339D44),
+                          color: const Color(0xFF339D44),
                         ),
                       ),
                     ),
@@ -211,41 +194,3 @@ class _RegistrationState extends State<Registration> {
   }
 }
 
-//
-// class ReUsableContainer extends StatelessWidget {
-//   final String label;
-//   final TextEditingController controller;
-//
-//   ReUsableContainer({super.key, required this.label, required this.controller});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 65,
-//       width: double.infinity,
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(10),
-//         border: Border.all(color: Colors.green, width: 1.0),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-//         child: Center(
-//           child: TextFormField(
-//             controller: controller,
-//             keyboardType: TextInputType.text,
-//             textInputAction: TextInputAction.done,
-//             style: TextStyle(fontSize: 18, color: Colors.black),
-//             cursorColor: Colors.blue,
-//             textAlign: TextAlign.left,
-//             decoration: InputDecoration(
-//               border: InputBorder.none,
-//               labelText: label,
-//               labelStyle: TextStyle(color: Colors.green, fontSize: 13),
-//               hintStyle: TextStyle(fontSize: 17),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

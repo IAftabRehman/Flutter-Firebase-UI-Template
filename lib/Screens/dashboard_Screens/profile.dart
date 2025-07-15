@@ -24,7 +24,7 @@ class Profile extends StatelessWidget {
             onPressed: () {
               Navigator.push(context, MaterialPageRoute(builder: (context) => Settings()));
             },
-            icon: Icon(Icons.settings_outlined, color: Colors.green, size: 28),
+            icon: const Icon(Icons.settings_outlined, color: Colors.green, size: 28),
           ),
         ],
       ),
@@ -35,7 +35,7 @@ class Profile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 50, // adjust as needed
                 backgroundImage: AssetImage(
                   "assets/images/questions_profile_1.jpg",
@@ -73,8 +73,8 @@ class Profile extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.edit_outlined, color: Colors.white, size: 25),
-                      SizedBox(width: 10),
+                      const Icon(Icons.edit_outlined, color: Colors.white, size: 25),
+                      const SizedBox(width: 10),
                       Text(
                         "Edit Profile",
                         style: GoogleFonts.raleway(
@@ -88,9 +88,9 @@ class Profile extends StatelessWidget {
               ),
               SizedBox(height: height * 0.05),
               Row(
-                children: [
+                children: const [
                   Text("Status", style: TextStyle(fontSize: 15)),
-                  const Spacer(),
+                  Spacer(),
                   Text("See Dashboard", style: TextStyle(color: Colors.green)),
                 ],
               ),
@@ -102,7 +102,7 @@ class Profile extends StatelessWidget {
                   children: [
                     Container(
                       height: 50,
-                      color: Color(0xffFBFBFB),
+                      color: const Color(0xffFBFBFB),
                       child: Center(
                         child: Text(
                           "252 Answered",
@@ -112,7 +112,7 @@ class Profile extends StatelessWidget {
                     ),
                     Container(
                       height: 50,
-                      color: Color(0xffFBFBFB),
+                      color: const Color(0xffFBFBFB),
                       child: Center(
                         child: Text(
                           "71 Pending",
@@ -122,7 +122,7 @@ class Profile extends StatelessWidget {
                     ),
                     Container(
                       height: 50,
-                      color: Color(0xffFBFBFB),
+                      color: const Color(0xffFBFBFB),
                       child: Center(
                         child: Text(
                           "14 Videos",
@@ -135,13 +135,13 @@ class Profile extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text("Ratings & Reviews", style: TextStyle(fontSize: 15)),
+                  const Text("Ratings & Reviews", style: TextStyle(fontSize: 15)),
                   const Spacer(),
                   TextButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ReviewDetails()));
                     },
-                    child: Text(
+                    child: const Text(
                       "See All",
                       style: TextStyle(color: Colors.green),
                     ),
@@ -149,9 +149,9 @@ class Profile extends StatelessWidget {
                 ],
               ),
 
-              ContainerReviewWidget(profile: "assets/images/questions_profile_1.jpg", name: "Fareeha Sadaqat", time: "20 mins ago", reviews: "Recommended Experts",),
+              const ContainerReviewWidget(profile: "assets/images/questions_profile_1.jpg", name: "Fareeha Sadaqat", time: "20 mins ago", reviews: "Recommended Experts",),
               const SizedBox(height: 5),
-              ContainerReviewWidget(profile: "assets/images/questions_profile_2.jpg", name: "Masab Mehmood", time: "20 mins ago", reviews: "Very Patient",),
+              const ContainerReviewWidget(profile: "assets/images/questions_profile_2.jpg", name: "Masab Mehmood", time: "20 mins ago", reviews: "Very Patient",),
             ],
           ),
         ),
@@ -204,7 +204,7 @@ class ContainerReviewWidget extends StatelessWidget {
 
           const Spacer(),
           Row(
-            children: [
+            children: const [
               Icon(Icons.star_outline, color: Colors.green, size: 20),
               Icon(Icons.star_outline, color: Colors.green, size: 20),
               Icon(Icons.star_outline, color: Colors.green, size: 20),

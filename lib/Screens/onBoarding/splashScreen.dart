@@ -37,6 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
             SizedBox(height: height * 0.319),
             Text("Powered by", style: GoogleFonts.raleway(fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xFFB7B9C6))),
             SizedBox(height: 12.97),
+            const SizedBox(height: 12.97),
             Image.asset("assets/images/splashScreen_logo_2.png")
           ],
         ),
@@ -44,3 +45,4 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+
