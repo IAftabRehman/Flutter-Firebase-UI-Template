@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/forgotPassword.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/homeDashboard.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/forgotPassword.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/homeDashboard.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
 

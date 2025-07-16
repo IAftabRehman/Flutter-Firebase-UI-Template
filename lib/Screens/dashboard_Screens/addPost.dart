@@ -1,17 +1,37 @@
+import 'dart:io';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_first_task/Screens/dashboard_Screens/video.dart';
-
+import 'package:image_picker/image_picker.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/questions.dart';
 import '../../Widgets/textBox_Widget.dart';
 
-class AddVideo extends StatefulWidget {
-  const AddVideo({super.key});
+class AddPost extends StatefulWidget {
+  const AddPost({super.key});
 
   @override
-  State<AddVideo> createState() => _AddVideoState();
+  State<AddPost> createState() => _AddPostState();
 }
 
-class _AddVideoState extends State<AddVideo> {
+class _AddPostState extends State<AddPost> {
+  TextEditingController caption = TextEditingController();
+
+  File? _image;
+  final picker = ImagePicker();
+
+  Future getGalleryImage() async {
+    final imagePick = await picker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      if (imagePick != null) {
+        _image = File(imagePick.path);
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("Not Selected")));
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final keyboard = MediaQuery.of(context).viewInsets.bottom != 0;
@@ -19,7 +39,7 @@ class _AddVideoState extends State<AddVideo> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Add Video",
+          "Add Post",
           style: GoogleFonts.raleway(
             fontSize: 23.3,
             fontWeight: FontWeight.bold,
@@ -29,58 +49,75 @@ class _AddVideoState extends State<AddVideo> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            keyboard ? SizedBox(height: 10) : Container(
-              margin: EdgeInsets.all(5),
-              height: height * 0.22,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                border: Border.all(width: 1),
-              ),
-              child: const Center(
-                child: Text(
-                  "Preview",
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-              ),
-            ),
+            keyboard
+                ? SizedBox(height: 10)
+                : Container(
+                    margin: EdgeInsets.all(5),
+                    height: height * 0.22,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(width: 1),
+                    ),
+                    child: Center(
+                      child: _image != null
+                          ? Image.file(_image!.absolute, height: 190)
+                          : const Icon(
+                              Icons.image,
+                              size: 50,
+                              color: Colors.green,
+                            ),
+                    ),
+                  ),
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  ReUsableContainerWithDashes(label: 'Upload Video', controller: null),
+                  SizedBox(height: height * 0.05),
+                  TextBoxWithOutDashes(label: "Caption", controller: caption),
                   SizedBox(height: height * 0.015),
-                  ReUsableContainerWithDashes(label: 'Upload Thumbnails', controller: null),
-                  SizedBox(height: height * 0.015),
-                  TextBoxWithOutDashes(label: "Title", controller: null),
-                  SizedBox(height: height * 0.015),
-                  TextFormField(
-                    maxLines: 10,
-                    minLines: 3,
-                    style: const TextStyle(color: Colors.grey),
-                    cursorColor: Colors.green,
-                    decoration: InputDecoration(
-                      labelStyle: const TextStyle(color: Colors.green),
-                      floatingLabelBehavior: FloatingLabelBehavior.never,
-                      hintText: "Descriptions",
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      enabledBorder:  OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.grey),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.green, width: 2),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 20,
+                  DottedBorder(
+                    color: Colors.green,
+                    strokeWidth: 1.5,
+                    dashPattern: [9, 9],
+                    borderType: BorderType.RRect,
+                    radius: Radius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        getGalleryImage();
+                      },
+                      child: SizedBox(
+                        height: 60,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            children: [
+                              _image != null
+                                  ? Text(
+                                      "Image Uploaded Successfully",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.grey,
+                                      ),
+                                    )
+                                  : Text(
+                                      "Image Upload",
+                                      style: TextStyle(
+                                        fontSize: 17,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                              const Spacer(),
+                              Icon(Icons.upload, color: Colors.green, size: 30),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  SizedBox(height: height * 0.035),
+                  SizedBox(height: height * 0.05),
                   ElevatedButton(
                     onPressed: () {
                       showDialog(
@@ -120,7 +157,22 @@ class _AddVideoState extends State<AddVideo> {
                                   const SizedBox(height: 20),
                                   ElevatedButton(
                                     onPressed: () {
-                                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Video()));
+                                      try {
+
+                                      } catch (e) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          SnackBar(content: Text(e.toString())),
+                                        );
+                                      }
+
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Questions(),
+                                        ),
+                                      );
                                     },
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: Color(0xff339D44),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/edit_profile.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/reviewDetails.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/settings.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/edit_profile.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/reviewDetails.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/settings.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});

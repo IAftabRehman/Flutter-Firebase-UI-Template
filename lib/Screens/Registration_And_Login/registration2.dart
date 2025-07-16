@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Data/Models/registrationModel.dart';
-import 'package:intership_first_task/Data/Services/RegistrationServices.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:internship_first_task/Data/Models/registrationModel.dart';
+import 'package:internship_first_task/Data/Services/RegistrationServices.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/login.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';

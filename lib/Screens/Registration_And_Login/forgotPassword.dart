@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Data/Services/AuthenticationServices.dart';
-import 'package:intership_first_task/Widgets/textBox_Widget.dart';
+import 'package:internship_first_task/Data/Services/AuthenticationServices.dart';
+import 'package:internship_first_task/Widgets/textBox_Widget.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});

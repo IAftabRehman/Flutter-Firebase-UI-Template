@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/addPost.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'answerTabBar.dart';
 import 'answers.dart';
@@ -43,6 +44,13 @@ class _QuestionsState extends State<Questions> {
                 ),
               ),
             ),
+            isSearching ?
+            SizedBox.shrink() : IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddPost()));
+              },
+              icon:Icon(Icons.add, color: Colors.green, size: 35),
+            )
           ],
 
           bottom: !isSearching

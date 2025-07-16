@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Data/Models/onboardingModel.dart';
 
@@ -37,11 +37,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
+
           Expanded(
             flex: 16,
             child: PageView.builder(
@@ -53,7 +54,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 370,
+                      height: h * 0.5,
                       width: double.infinity,
                       child: Stack(
                         children: [
@@ -89,7 +90,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: height * 0.03),
+                    SizedBox(height: h * 0.03),
                     OnBoardingText(title: onBoardingList[i].title.toString(), description: onBoardingList[i].description.toString())
                   ],
                 );

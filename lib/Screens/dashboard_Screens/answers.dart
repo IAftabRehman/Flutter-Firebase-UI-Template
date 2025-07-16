@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/questions.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/questions.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class AnswersNavigator extends StatefulWidget {

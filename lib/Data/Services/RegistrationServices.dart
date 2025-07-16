@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intership_first_task/Data/Models/registrationModel.dart';
+import 'package:internship_first_task/Data/Models/registrationModel.dart';
 
 class RegistrationServices{
   Future createAccount(RegistrationModel model) async {

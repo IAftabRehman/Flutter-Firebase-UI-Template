@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/login.dart';
-import 'package:intership_first_task/Screens/Registration_And_Login/registration2.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/login.dart';
+import 'package:internship_first_task/Screens/Registration_And_Login/registration2.dart';
 import '../../Widgets/textBox_Widget.dart';
 
 class Registration extends StatefulWidget {

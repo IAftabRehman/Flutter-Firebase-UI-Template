@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Data/Services/AuthenticationServices.dart';
+import 'package:internship_first_task/Data/Services/AuthenticationServices.dart';
 
 import '../Registration_And_Login/login.dart';
 

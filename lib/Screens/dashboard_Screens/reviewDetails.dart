@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/profile.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/profile.dart';
 
 class ReviewDetails extends StatelessWidget {
   const ReviewDetails({super.key});

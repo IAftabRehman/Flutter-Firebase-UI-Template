@@ -1,5 +1,5 @@
-name: intership_first_task
-description: "Intership First Task (FlutterFirebase_UI_Template)"
+name: internship_first_task
+description: "Internship First Task (FlutterFirebase_UI_Template)"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -42,9 +42,11 @@ dependencies:
   persistent_bottom_nav_bar_v2: ^6.1.0 # for Bottom Bar
   firebase_core: ^3.15.1 # For Firebas
   cloud_firestore: ^5.6.11 #
+  firebase_storage: ^12.4.9 # for image or file storage
   firebase_auth: ^5.6.2 # for firebase authentication
   flutter_dotenv: ^5.2.1 # for hiding API keys
   shared_preferences: ^2.5.3 # for locally stored data
+  image_picker: ^1.1.2 # for Image picker
 
 dev_dependencies:
   flutter_test:

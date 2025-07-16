@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/profile.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/questions.dart';
-import 'package:intership_first_task/Screens/dashboard_Screens/video.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/profile.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/questions.dart';
+import 'package:internship_first_task/Screens/dashboard_Screens/video.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'comments.dart';
@@ -220,7 +220,7 @@ class CustomBottomBarWidget extends StatelessWidget {
       tabs: [
         PersistentTabConfig(
           screen: HomeDashboard(),
-          item: ItemConfig(icon: Icon(Icons.home), activeForegroundColor: Colors.green),
+          item: ItemConfig(icon: Icon(Icons.home_outlined), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
           screen: Questions(),
@@ -228,15 +228,15 @@ class CustomBottomBarWidget extends StatelessWidget {
         ),
         PersistentTabConfig(
           screen: Video(),
-          item: ItemConfig(icon: Icon(Icons.play_circle_outline), activeForegroundColor: Colors.green),
+          item: ItemConfig(icon: Icon(Icons.play_arrow), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
           screen: Comments(),
-          item: ItemConfig(icon: Icon(Icons.comment_outlined), activeForegroundColor: Colors.green),
+          item: ItemConfig(icon: Icon(Icons.chat_bubble_outline), activeForegroundColor: Colors.green),
         ),
         PersistentTabConfig(
           screen: Profile(),
-          item: ItemConfig(icon: Icon(Icons.person), activeForegroundColor: Colors.green),
+          item: ItemConfig(icon: Icon(Icons.person_outline), activeForegroundColor: Colors.green),
         ),
       ],
       navBarBuilder: (navBarConfig) => Style4BottomNavBar(

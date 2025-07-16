@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intership_first_task/Screens/onBoarding/onboardingScreens.dart';
+import 'package:internship_first_task/Screens/onBoarding/onboardingScreens.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
