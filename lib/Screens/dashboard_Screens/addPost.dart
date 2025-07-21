@@ -110,7 +110,13 @@ class _AddPostState extends State<AddPost> {
                                       ),
                                     ),
                               const Spacer(),
-                              Icon(Icons.upload, color: Colors.green, size: 30),
+                              SizedBox(
+                                child: Image.asset(
+                                  height: 30,
+                                  fit: BoxFit.contain,
+                                  'assets/images/video_uploader.png',
+                                ),
+                              ),
                             ],
                           ),
                         ),

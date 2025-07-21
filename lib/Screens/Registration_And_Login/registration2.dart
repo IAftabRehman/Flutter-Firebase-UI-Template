@@ -74,7 +74,7 @@ class _Registration2State extends State<Registration2> {
                   controller: profileImage,
                 ),
                 const SizedBox(height: 15),
-                ExpertiseDropdownField(
+                CustomDropDownWidget(
                   onChanged: (value) {
                     setState(() {
                       expertise = value;
@@ -318,16 +318,19 @@ class _Registration2State extends State<Registration2> {
   }
 }
 
-class ExpertiseDropdownField extends StatefulWidget {
+
+
+// This is a widget, where is only use for DropDown
+class CustomDropDownWidget extends StatefulWidget {
   final ValueChanged<String?> onChanged;
 
-  const ExpertiseDropdownField({super.key, required this.onChanged});
+  const CustomDropDownWidget({super.key, required this.onChanged});
 
   @override
-  _ExpertiseDropdownFieldState createState() => _ExpertiseDropdownFieldState();
+  _CustomDropDownWidgetState createState() => _CustomDropDownWidgetState();
 }
 
-class _ExpertiseDropdownFieldState extends State<ExpertiseDropdownField> {
+class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
   final List<String> _expertiseList = const [
     'Flutter',
     'Python',

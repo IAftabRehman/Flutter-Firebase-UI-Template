@@ -1,6 +1,5 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 class TextBoxWithOutDashes extends StatelessWidget {
   final String label;
@@ -61,11 +60,16 @@ class ReUsableContainerWithDashes extends StatelessWidget {
               labelText: label,
               labelStyle: TextStyle(color: Colors.black, fontSize: 13),
               hintStyle: TextStyle(fontSize: 17),
-              suffixIcon: SvgPicture.asset(
-                width: 10,
-                height: 10,
-                fit: BoxFit.contain,
-                'assets/images/videoUploader.svg',
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: SizedBox(
+                  width: 10,
+                  height: 10,
+                  child: Image.asset(
+                    fit: BoxFit.contain,
+                    'assets/images/video_uploader.png',
+                  ),
+                ),
               ),
             ),
           ),

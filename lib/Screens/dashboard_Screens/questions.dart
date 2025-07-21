@@ -202,10 +202,10 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
+      padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 12),
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 5)],
+        boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 0.1)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,7 +266,7 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
               ],
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Text(

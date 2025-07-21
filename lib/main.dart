@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:internship_first_task/Screens/Registration_And_Login/registration2.dart';
+import 'package:internship_first_task/Screens/onBoarding/splashScreen.dart';
 import 'package:provider/provider.dart';
 import 'Data/Provider/AuthenticationProvider.dart';
 import 'firebase_options.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Registration2(name: "adsf",email: "daf", password: "sdfa",)
+        home: SplashScreen()
       ),
     );
   }

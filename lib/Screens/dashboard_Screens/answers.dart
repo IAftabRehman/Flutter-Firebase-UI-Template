@@ -86,27 +86,6 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                         ),
                       ],
                     ),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => AnswersNavigator(
-                              name: widget.name,
-                              secondText: widget.secondText,
-                              caption: widget.caption,
-                              profileImage: widget.profileImage,
-                              onboardingImages: [],
-                            ),
-                          ),
-                        );
-                      },
-                      child: const Text(
-                        "Answer",
-                        style: TextStyle(color: Colors.green, fontSize: 11),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -121,11 +100,11 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                   ),
                 ),
               ),
-        
+
               if (widget.onboardingImages != null &&
                   widget.onboardingImages!.isNotEmpty)
                 const SizedBox(height: 10),
-        
+
               if (widget.onboardingImages != null &&
                   widget.onboardingImages!.isNotEmpty)
                 Stack(
@@ -185,6 +164,25 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                   contentPadding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 20,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green,
+                  minimumSize: Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadiusGeometry.circular(10)
+                  )
+                ),
+                child: Text(
+                  "Answered",
+                  style: GoogleFonts.raleway(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
                   ),
                 ),
               ),

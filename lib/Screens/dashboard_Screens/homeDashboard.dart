@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:internship_first_task/Screens/dashboard_Screens/profile.dart';
-import 'package:internship_first_task/Screens/dashboard_Screens/questions.dart';
-import 'package:internship_first_task/Screens/dashboard_Screens/video.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'comments.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeDashboard extends StatefulWidget {
@@ -82,18 +77,18 @@ class _HomeDashboardState extends State<HomeDashboard> {
               Row(
                 children: [
                   Expanded(
-                    child: ReUsableContainer(
+                    child: BoxContainerWidget(
                       image: 'assets/images/dashboard_question.svg',
-                      image_width: 50,
+                      widthOfImage: 50,
                       upperText: "224",
                       lowerText: "Total Questions",
                     ),
                   ),
                   const SizedBox(width: 15),
                  Expanded(
-                    child: ReUsableContainer(
+                    child: BoxContainerWidget(
                       image: 'assets/images/dashboard_done.svg',
-                      image_width: 45,
+                      widthOfImage: 45,
                       upperText: "154",
                       lowerText: "Answer\nQuestions",
                     ),
@@ -104,18 +99,18 @@ class _HomeDashboardState extends State<HomeDashboard> {
               Row(
                 children: [
                   Expanded(
-                    child: ReUsableContainer(
+                    child: BoxContainerWidget(
                       image: 'assets/images/dashboard_eye.svg',
-                      image_width: 50,
+                      widthOfImage: 50,
                       upperText: "1.5k",
                       lowerText: "Total Views",
                     ),
                   ),
                   SizedBox(width: 15),
                   Expanded(
-                    child: ReUsableContainer(
+                    child: BoxContainerWidget(
                       image: 'assets/images/dashboard_youtube.svg',
-                      image_width: 45,
+                      widthOfImage: 45,
                       upperText: "12",
                       lowerText: "Total Videos",
                     ),
@@ -157,16 +152,16 @@ class _HomeDashboardState extends State<HomeDashboard> {
   }
 }
 
-class ReUsableContainer extends StatelessWidget {
+class BoxContainerWidget extends StatelessWidget {
   final String image;
-  final double image_width;
+  final double widthOfImage;
   final String upperText;
   final String lowerText;
 
-  const ReUsableContainer({
+  const BoxContainerWidget({
     super.key,
     required this.image,
-    required this.image_width,
+    required this.widthOfImage,
     required this.upperText,
     required this.lowerText,
   });
@@ -194,7 +189,7 @@ class ReUsableContainer extends StatelessWidget {
         children: [
           SvgPicture.asset(
             image,
-            width: image_width,
+            width: widthOfImage,
           ),
           const SizedBox(width: 10),
           Column(
@@ -223,107 +218,3 @@ class ReUsableContainer extends StatelessWidget {
   }
 }
 
-class CustomBottomBarWidget extends StatelessWidget {
-  const CustomBottomBarWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return PersistentTabView(
-      tabs: [
-        PersistentTabConfig(
-          screen: const HomeDashboard(),
-          item: ItemConfig(
-            icon: SvgPicture.asset(
-              'assets/images/homeIcon.svg',
-              width: 30,
-              color: Colors.green,
-            ),
-            inactiveIcon: SvgPicture.asset(
-              'assets/images/homeIcon.svg',
-              width: 30,
-              color: Color(0xffB4B4B4),
-            ),
-            activeForegroundColor: Colors.green,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: const Questions(),
-          item: ItemConfig(
-            icon: SvgPicture.asset(
-              'assets/images/question.svg',
-              width: 30,
-              color: Colors.green,
-            ),
-            inactiveIcon: SvgPicture.asset(
-              'assets/images/question.svg',
-              width: 30,
-              color: Color(0xffB4B4B4),
-            ),
-            activeForegroundColor: Colors.green,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: const Video(),
-          item: ItemConfig(
-            icon: SvgPicture.asset(
-              'assets/images/video.svg',
-              width: 30,
-              color: Colors.green,
-            ),
-            inactiveIcon: SvgPicture.asset(
-              'assets/images/video.svg',
-              width: 30,
-              color: Color(0xffB4B4B4),
-            ),
-            activeForegroundColor: Colors.green,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: const Comments(),
-          item: ItemConfig(
-            icon: SvgPicture.asset(
-              'assets/images/comment.svg',
-              width: 30,
-              color: Colors.green,
-            ),
-            inactiveIcon: SvgPicture.asset(
-              'assets/images/comment.svg',
-              width: 30,
-              color: Color(0xffB4B4B4),
-            ),
-            activeForegroundColor: Colors.green,
-          ),
-        ),
-        PersistentTabConfig(
-          screen: const Profile(),
-          item: ItemConfig(
-            icon: SvgPicture.asset(
-              'assets/images/profile.svg',
-              width: 30,
-              color: Colors.green,
-            ),
-            inactiveIcon: SvgPicture.asset(
-              'assets/images/profile.svg',
-              width: 30,
-              color: Color(0xffB4B4B4),
-            ),
-            activeForegroundColor: Colors.green,
-          ),
-        ),
-      ],
-      navBarBuilder: (navBarConfig) => Style4BottomNavBar(
-        height: 70,
-        navBarConfig: navBarConfig,
-        navBarDecoration: NavBarDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10)],
-        ),
-        itemAnimationProperties: const ItemAnimation(
-          duration: Duration(milliseconds: 500),
-          curve: Curves.easeInOut,
-        ),
-      ),
-    );
-  }
-}
