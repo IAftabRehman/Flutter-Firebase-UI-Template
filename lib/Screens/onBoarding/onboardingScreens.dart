@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../Constant/textStyle.dart';
 import '../../Data/Models/onboardingModel.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -37,6 +38,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // final textStyle = AppTextStyles(context);
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -133,13 +135,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 }
 
 
+
+// OnBoardingText based widget for text section
 class OnBoardingText extends StatelessWidget {
   final String title, description;
-
   const OnBoardingText({super.key, required this.title, required this.description});
 
   @override
   Widget build(BuildContext context) {
+    final textStyle = AppTextStyles(context);
     final height = MediaQuery.of(context).size.height;
     return SizedBox(
       height: 250,
@@ -152,13 +156,9 @@ class OnBoardingText extends StatelessWidget {
           children: [
             Text(
               title,
-              style: GoogleFonts.raleway(
-                fontSize: 33,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF292929),
-              ),
+              style: textStyle.headingLarge
             ),
-            SizedBox(height: height * 0.010),
+            SizedBox(height: height * 0.01),
             Text(
               description,
               style: GoogleFonts.raleway(

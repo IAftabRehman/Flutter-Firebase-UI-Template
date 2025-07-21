@@ -6,6 +6,7 @@ import 'package:internship_first_task/Screens/dashboard_Screens/video.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'comments.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});
@@ -17,6 +18,7 @@ class HomeDashboard extends StatefulWidget {
 class _HomeDashboardState extends State<HomeDashboard> {
   int selectedIndex = 0;
   String? userName;
+
   void getNameFromSharedPreference() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -30,6 +32,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
     super.initState();
     getNameFromSharedPreference();
   }
+
   List<Widget> screenList = const [
     Text("First"),
     Text("First"),
@@ -76,19 +79,21 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
               const SizedBox(height: 30),
 
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     child: ReUsableContainer(
-                      icon: Icons.question_mark,
+                      image: 'assets/images/dashboard_question.svg',
+                      image_width: 50,
                       upperText: "224",
                       lowerText: "Total Questions",
                     ),
                   ),
-                  SizedBox(width: 15),
-                  Expanded(
+                  const SizedBox(width: 15),
+                 Expanded(
                     child: ReUsableContainer(
-                      icon: Icons.done_all,
+                      image: 'assets/images/dashboard_done.svg',
+                      image_width: 45,
                       upperText: "154",
                       lowerText: "Answer\nQuestions",
                     ),
@@ -96,11 +101,12 @@ class _HomeDashboardState extends State<HomeDashboard> {
                 ],
               ),
               const SizedBox(height: 15),
-              const Row(
+              Row(
                 children: [
                   Expanded(
                     child: ReUsableContainer(
-                      icon: Icons.panorama_fish_eye_outlined,
+                      image: 'assets/images/dashboard_eye.svg',
+                      image_width: 50,
                       upperText: "1.5k",
                       lowerText: "Total Views",
                     ),
@@ -108,7 +114,8 @@ class _HomeDashboardState extends State<HomeDashboard> {
                   SizedBox(width: 15),
                   Expanded(
                     child: ReUsableContainer(
-                      icon: Icons.youtube_searched_for_rounded,
+                      image: 'assets/images/dashboard_youtube.svg',
+                      image_width: 45,
                       upperText: "12",
                       lowerText: "Total Videos",
                     ),
@@ -151,13 +158,15 @@ class _HomeDashboardState extends State<HomeDashboard> {
 }
 
 class ReUsableContainer extends StatelessWidget {
-  final IconData icon;
+  final String image;
+  final double image_width;
   final String upperText;
   final String lowerText;
 
   const ReUsableContainer({
     super.key,
-    required this.icon,
+    required this.image,
+    required this.image_width,
     required this.upperText,
     required this.lowerText,
   });
@@ -183,7 +192,10 @@ class ReUsableContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, size: 40, color: Color(0xffD4D4D4)),
+          SvgPicture.asset(
+            image,
+            width: image_width,
+          ),
           const SizedBox(width: 10),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -219,37 +231,96 @@ class CustomBottomBarWidget extends StatelessWidget {
     return PersistentTabView(
       tabs: [
         PersistentTabConfig(
-          screen: HomeDashboard(),
-          item: ItemConfig(icon: Icon(Icons.home_outlined), activeForegroundColor: Colors.green),
+          screen: const HomeDashboard(),
+          item: ItemConfig(
+            icon: SvgPicture.asset(
+              'assets/images/homeIcon.svg',
+              width: 30,
+              color: Colors.green,
+            ),
+            inactiveIcon: SvgPicture.asset(
+              'assets/images/homeIcon.svg',
+              width: 30,
+              color: Color(0xffB4B4B4),
+            ),
+            activeForegroundColor: Colors.green,
+          ),
         ),
         PersistentTabConfig(
-          screen: Questions(),
-          item: ItemConfig(icon: Icon(Icons.question_mark), activeForegroundColor: Colors.green),
+          screen: const Questions(),
+          item: ItemConfig(
+            icon: SvgPicture.asset(
+              'assets/images/question.svg',
+              width: 30,
+              color: Colors.green,
+            ),
+            inactiveIcon: SvgPicture.asset(
+              'assets/images/question.svg',
+              width: 30,
+              color: Color(0xffB4B4B4),
+            ),
+            activeForegroundColor: Colors.green,
+          ),
         ),
         PersistentTabConfig(
-          screen: Video(),
-          item: ItemConfig(icon: Icon(Icons.play_arrow), activeForegroundColor: Colors.green),
+          screen: const Video(),
+          item: ItemConfig(
+            icon: SvgPicture.asset(
+              'assets/images/video.svg',
+              width: 30,
+              color: Colors.green,
+            ),
+            inactiveIcon: SvgPicture.asset(
+              'assets/images/video.svg',
+              width: 30,
+              color: Color(0xffB4B4B4),
+            ),
+            activeForegroundColor: Colors.green,
+          ),
         ),
         PersistentTabConfig(
-          screen: Comments(),
-          item: ItemConfig(icon: Icon(Icons.chat_bubble_outline), activeForegroundColor: Colors.green),
+          screen: const Comments(),
+          item: ItemConfig(
+            icon: SvgPicture.asset(
+              'assets/images/comment.svg',
+              width: 30,
+              color: Colors.green,
+            ),
+            inactiveIcon: SvgPicture.asset(
+              'assets/images/comment.svg',
+              width: 30,
+              color: Color(0xffB4B4B4),
+            ),
+            activeForegroundColor: Colors.green,
+          ),
         ),
         PersistentTabConfig(
-          screen: Profile(),
-          item: ItemConfig(icon: Icon(Icons.person_outline), activeForegroundColor: Colors.green),
+          screen: const Profile(),
+          item: ItemConfig(
+            icon: SvgPicture.asset(
+              'assets/images/profile.svg',
+              width: 30,
+              color: Colors.green,
+            ),
+            inactiveIcon: SvgPicture.asset(
+              'assets/images/profile.svg',
+              width: 30,
+              color: Color(0xffB4B4B4),
+            ),
+            activeForegroundColor: Colors.green,
+          ),
         ),
       ],
       navBarBuilder: (navBarConfig) => Style4BottomNavBar(
-        height: 60,
+        height: 70,
         navBarConfig: navBarConfig,
-
         navBarDecoration: NavBarDecoration(
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 10)],
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 10)],
         ),
-
         itemAnimationProperties: const ItemAnimation(
-          duration: Duration(milliseconds: 400),
+          duration: Duration(milliseconds: 500),
           curve: Curves.easeInOut,
         ),
       ),
