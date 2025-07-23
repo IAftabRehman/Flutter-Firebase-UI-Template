@@ -4,6 +4,7 @@ import 'package:internship_first_task/Data/Models/registrationModel.dart';
 import 'package:internship_first_task/Data/Services/RegistrationServices.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:internship_first_task/Screens/utils/imagePicker_Logic.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
@@ -31,6 +32,19 @@ class _Registration2State extends State<Registration2> {
   TextEditingController latestDegree = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController contact = TextEditingController();
+
+  // Future<void> _uploadImage() async {
+  //   if (_image == null) return;
+  //   final fileName = DateTime.now().millisecondsSinceEpoch.toString();
+  //   final bytes = await _image!.readAsBytes();
+  //   final response = await Supabase.instance.client.storage
+  //       .from('images')
+  //       .uploadBinary('public/$fileName.jpg', bytes);
+  //   ScaffoldMessenger.of(
+  //     context,
+  //   ).showSnackBar(SnackBar(content: Text('Uploaded: $response')));
+  // }
+
   final List<String> expertiseOptions = const [
     'Flutter',
     'Python',
@@ -69,10 +83,7 @@ class _Registration2State extends State<Registration2> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                ReUsableContainerWithDashes(
-                  label: "Upload Profile Image",
-                  controller: profileImage,
-                ),
+                ImagePickerWidget(imageType: "Profile"),
                 const SizedBox(height: 15),
                 CustomDropDownWidget(
                   onChanged: (value) {
@@ -87,10 +98,7 @@ class _Registration2State extends State<Registration2> {
                   controller: qualification,
                 ),
                 const SizedBox(height: 15),
-                ReUsableContainerWithDashes(
-                  label: "Upload Latest Degree",
-                  controller: latestDegree,
-                ),
+                ImagePickerWidget(imageType: "Degree"),
                 const SizedBox(height: 15),
                 Container(
                   height: 110,
@@ -158,7 +166,7 @@ class _Registration2State extends State<Registration2> {
                                           profileImage: profileImage.text,
                                           expertise: expertise.toString(),
                                           qualification: qualification.text,
-                                          latestDegree: latestDegree.text,
+                                          degreeImage: latestDegree.text,
                                           address: address.text,
                                           contact: contact.text,
                                           docId: DateTime.now()
@@ -317,8 +325,6 @@ class _Registration2State extends State<Registration2> {
     );
   }
 }
-
-
 
 // This is a widget, where is only use for DropDown
 class CustomDropDownWidget extends StatefulWidget {

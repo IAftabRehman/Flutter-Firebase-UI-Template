@@ -8,13 +8,14 @@ class RegistrationModel {
   final String? name;
   final String? email;
   final String? password;
-  final String? docId;
   final String? profileImage;
   final String? expertise;
   final String? qualification;
-  final String? latestDegree;
+  final String? degreeImage;
   final String? address;
   final String? contact;
+  final String? docId;
+  final String? createdAt;
 
   RegistrationModel({
     this.name,
@@ -24,34 +25,37 @@ class RegistrationModel {
     this.profileImage,
     this.expertise,
     this.qualification,
-    this.latestDegree,
+    this.degreeImage,
     this.address,
     this.contact,
+    this.createdAt
   });
 
   factory RegistrationModel.fromJson(Map<String, dynamic> json) => RegistrationModel(
     name: json["name"],
     email: json["email"],
     password: json["password"],
-    docId: json["docId"],
     profileImage: json["profileImage"],
     expertise: json["expertise"],
     qualification: json["qualification"],
-    latestDegree: json["latestDegree"],
+    degreeImage: json["latestDegree"],
     address: json["address"],
     contact: json["contact"],
+    docId: json["docId"],
+    createdAt: json["createdAt"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
     "email": email,
     "password": password,
-    "docId": docId,
     "profileImage": profileImage,
     "expertise": expertise,
     "qualification": qualification,
-    "latestDegree": latestDegree,
+    "latestDegree": degreeImage,
     "address": address,
     "contact": contact,
+    "docId": docId,
+    "createdAt" : createdAt
   };
 }

@@ -44,10 +44,12 @@ dependencies:
   cloud_firestore: ^5.6.11 #
   firebase_storage: ^12.4.9 # for image or file storage
   firebase_auth: ^5.6.2 # for firebase authentication
-  flutter_dotenv: ^5.2.1 # for hiding API keys
+#  flutter_dotenv: ^5.2.1 # for hiding API keys
   shared_preferences: ^2.5.3 # for locally stored data
   image_picker: ^1.1.2 # for Image picker
+
   flutter_svg: ^2.0.7 # for SVG icons
+  supabase_flutter: ^2.9.1
 
 dev_dependencies:
   flutter_test:
@@ -74,7 +76,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
-    - keys.env
+#    - keys.env
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
