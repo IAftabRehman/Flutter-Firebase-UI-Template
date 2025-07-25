@@ -9,8 +9,24 @@ class UploadPostServices {
   }
 
   Stream<QuerySnapshot> getComments(String extraId) {
+    return FirebaseFirestore.instance.collection('createPost').snapshots();
+  }
+
+  Stream<QuerySnapshot> getPosts() {
+    return FirebaseFirestore.instance.collection('createPost').snapshots();
+  }
+
+  Stream<QuerySnapshot> getPostsWhereIsPending() {
     return FirebaseFirestore.instance
-        .collection('createPosts')
+        .collection('createPost')
+        .where("answer", isEqualTo: false)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot> getPostsWhereIsAnswered() {
+    return FirebaseFirestore.instance
+        .collection('createPost')
+        .where("answer", isEqualTo: true)
         .snapshots();
   }
 }

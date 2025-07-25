@@ -1,11 +1,13 @@
+import 'dart:io';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:internship_first_task/Data/Models/registrationModel.dart';
 import 'package:internship_first_task/Data/Services/RegistrationServices.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
-import 'package:internship_first_task/Screens/utils/imagePicker_Logic.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
 
@@ -172,111 +174,97 @@ class _Registration2State extends State<Registration2> {
                                           docId: DateTime.now()
                                               .millisecondsSinceEpoch
                                               .toString(),
+                                          createdAt: DateTime.now()
+                                              .millisecondsSinceEpoch
+                                              .toString(),
                                         ),
                                       )
                                       .then((val) async {
-                                        final prefs =
-                                            await SharedPreferences.getInstance();
-                                        await prefs.setString(
-                                          'name',
-                                          widget.name,
-                                        );
-
-                                        isLoading = false;
-                                        setState(() {});
-                                        showDialog(
-                                          context: context,
-                                          barrierDismissible: false,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              content: SizedBox(
-                                                height: 250,
-                                                width: 400,
-                                                child: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.done_all,
-                                                      color: Colors.green,
-                                                      size: 50,
-                                                    ),
-                                                    const SizedBox(height: 20),
-                                                    Text(
-                                                      "Account Created",
-                                                      style:
-                                                          GoogleFonts.raleway(
-                                                            fontSize: 23.03,
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                            color: const Color(
-                                                              0xff292929,
-                                                            ),
-                                                          ),
-                                                    ),
-                                                    const SizedBox(height: 10),
-                                                    Text(
-                                                      "You can now access your account",
-                                                      style:
-                                                          GoogleFonts.raleway(
-                                                            fontSize: 13.33,
-                                                            fontWeight:
-                                                                FontWeight.w400,
-                                                            color: const Color(
-                                                              0xffB4B4B4,
-                                                            ),
-                                                          ),
-                                                    ),
-                                                    const SizedBox(height: 20),
-                                                    ElevatedButton(
-                                                      onPressed: () {
-                                                        Navigator.pushReplacement(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                            builder:
-                                                                (context) =>
-                                                                    Login(),
-                                                          ),
-                                                        );
-                                                      },
-                                                      style: ElevatedButton.styleFrom(
-                                                        backgroundColor:
-                                                            const Color(
-                                                              0xff339D44,
-                                                            ),
-                                                        minimumSize: Size(
-                                                          double.infinity,
-                                                          50,
-                                                        ),
-                                                        shape: RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                10,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      child: Text(
-                                                        "Login",
-                                                        style:
-                                                            GoogleFonts.raleway(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                  });
+                                  isLoading = false;
+                                  setState(() {});
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        content: SizedBox(
+                                          height: 250,
+                                          width: 400,
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.done_all,
+                                                color: Colors.green,
+                                                size: 50,
+                                              ),
+                                              const SizedBox(height: 20),
+                                              Text(
+                                                "Account Created",
+                                                style: GoogleFonts.raleway(
+                                                  fontSize: 23.03,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: const Color(
+                                                    0xff292929,
+                                                  ),
                                                 ),
                                               ),
-                                            );
-                                          },
-                                        );
-                                      });
+                                              const SizedBox(height: 10),
+                                              Text(
+                                                "You can now access your account",
+                                                style: GoogleFonts.raleway(
+                                                  fontSize: 13.33,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: const Color(
+                                                    0xffB4B4B4,
+                                                  ),
+                                                ),
+                                              ),
+                                              const SizedBox(height: 20),
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.pushReplacement(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Login(),
+                                                    ),
+                                                  );
+                                                },
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: const Color(
+                                                    0xff339D44,
+                                                  ),
+                                                  minimumSize: Size(
+                                                    double.infinity,
+                                                    50,
+                                                  ),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          10,
+                                                        ),
+                                                  ),
+                                                ),
+                                                child: Text(
+                                                  "Login",
+                                                  style: GoogleFonts.raleway(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
                                 });
                           } catch (e) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -373,3 +361,121 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
     );
   }
 }
+
+
+
+class ImagePickerWidget extends StatefulWidget {
+  final String imageType;
+
+  const ImagePickerWidget({super.key, required this.imageType});
+
+  @override
+  State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
+}
+
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  File? _pickedImage;
+  final picker = ImagePicker();
+  bool _isUploading = false;
+  String? _uploadedImageUrl;
+
+  Future<void> _pickImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedImage = File(pickedFile.path);
+      });
+      await _uploadImage(File(pickedFile.path));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("No image selected for ${widget.imageType}")),
+      );
+    }
+  }
+
+  Future<void> _uploadImage(File image) async {
+    try {
+      setState(() {
+        _isUploading = true;
+      });
+
+      final bytes = await image.readAsBytes();
+      final fileName = '${widget.imageType}_${DateTime.now().millisecondsSinceEpoch}.jpg';
+
+      final response = await Supabase.instance.client.storage
+          .from('images')
+          .uploadBinary('public/$fileName', bytes);
+
+      final url = Supabase.instance.client.storage
+          .from('images')
+          .getPublicUrl('public/$fileName');
+
+      setState(() {
+        _uploadedImageUrl = url;
+        _isUploading = false;
+      });
+
+      // Pass URL to parent TextEditingController
+      if (widget.imageType == "Profile") {
+        final registration2State = context.findAncestorStateOfType<_Registration2State>();
+        registration2State?.profileImage.text = _uploadedImageUrl ?? '';
+      } else if (widget.imageType == "Degree") {
+        final registration2State = context.findAncestorStateOfType<_Registration2State>();
+        registration2State?.latestDegree.text = _uploadedImageUrl ?? '';
+      }
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('${widget.imageType} image uploaded successfully')),
+      );
+    } catch (e) {
+      setState(() {
+        _isUploading = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Upload failed: $e")),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: _pickImage,
+      child: DottedBorder(
+        borderType: BorderType.RRect,
+        radius: const Radius.circular(12),
+        dashPattern: const [6, 3],
+        color: Colors.grey,
+        strokeWidth: 2,
+        child: Container(
+          height: 120,
+          width: double.infinity,
+          alignment: Alignment.center,
+          child: _isUploading
+              ? const CircularProgressIndicator()
+              : _pickedImage != null
+              ? ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.file(
+              _pickedImage!,
+              height: 100,
+              width: 100,
+              fit: BoxFit.cover,
+            ),
+          )
+              : Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.upload_file, size: 40, color: Colors.grey),
+              const SizedBox(height: 8),
+              Text("Upload ${widget.imageType} Image",
+                  style: const TextStyle(color: Colors.grey)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+

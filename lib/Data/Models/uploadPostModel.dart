@@ -37,4 +37,5 @@ class UploadPostModel {
     "docId": docId,
     "image": image,
   };
+
 }

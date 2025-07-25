@@ -118,7 +118,7 @@ class _LoginState extends State<Login> {
                               .then((val) {
                             isLoading = false;
                             setState(() {});
-                            if ( true) {
+                            if (true) {
                               showDialog(
                                   context: context,
                                   builder: (context) {
@@ -134,8 +134,12 @@ class _LoginState extends State<Login> {
                             }
                           });
                         } catch (e) {
+                          isLoading = false;
+                          setState(() {
+
+                          });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text(e.toString())),
+                            SnackBar(content: Text("sadfasd")),
                           );
                         }
                       },

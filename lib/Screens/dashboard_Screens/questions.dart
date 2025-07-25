@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_first_task/Screens/dashboard_Screens/addPost.dart';
+import '../../Data/Services/UploadPostServices.dart';
 import '../../Widgets/post_show_widget.dart';
-import 'answerTabBar.dart';
 
 class Questions extends StatefulWidget {
   const Questions({super.key});
@@ -118,56 +119,83 @@ class _QuestionsState extends State<Questions> {
                   ),
                 ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             SingleChildScrollView(
-              child: Column(
-                children: [
-                  CustomProfilePost(
-                    name: "Fareeha Sadaqat",
-                    secondText: "10 minutes ago",
-                    caption: "I have an issue regarding this vehicle",
-                    profileImage: "assets/images/questions_profile_1.jpg",
-                    onboardingImages: [
-                      "assets/images/questions.png",
-                      "assets/images/questions.png",
-                      "assets/images/questions.png",
-                      "assets/images/questions.png",
-                      "assets/images/questions.png",
-                      "assets/images/questions.png",
-                    ],
-                  ),
-                  CustomProfilePost(
-                    name: "Muhammad Ali Nizami",
-                    secondText: "10 minutes ago",
-                    caption:
-                        "What is the process of purchasing Vehicle from hardware store?",
-                    profileImage: "assets/images/questions_profile_2.jpg",
-                  ),
-                  CustomProfilePost(
-                    name: "Masab Mehmood",
-                    secondText: "15 minutes ago",
-                    caption:
-                        "What is the process of purchasing Vehicle from hardware store?",
-                    profileImage: "assets/images/questions_profile_4.jpg",
-                  ),
-                  CustomProfilePost(
-                    name: "Janat Mehmood",
-                    secondText: "10 minutes ago",
-                    caption:
-                        "What is the process of purchasing Vehicle from hardware store?",
-                    profileImage: "assets/images/questions_profile_3.jpg",
-                  ),
-                ],
+              child: StreamBuilder<QuerySnapshot>(
+                stream: UploadPostServices().getPosts(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text("No posts found"));
+                  }
+                  return Column(
+                    children: snapshot.data!.docs.map((doc) {
+                      final data = doc.data() as Map<String, dynamic>;
+                      return CustomProfilePost(
+                        name: data['name'] ?? 'Unknown',
+                        secondText: data['createdAt'] ?? '',
+                        caption: data['caption'] ?? '',
+                        answer: "Answered",
+                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                      );
+                    }).toList(),
+                  );
+                },
               ),
             ),
-            Center(
-              child: Text(
-                "Screen Not Available in Figma",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+            SingleChildScrollView(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: UploadPostServices().getPostsWhereIsPending(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text("No posts found"));
+                  }
+                  return Column(
+                    children: snapshot.data!.docs.map((doc) {
+                      final data = doc.data() as Map<String, dynamic>;
+                      return CustomProfilePost(
+                        name: data['name'] ?? 'Unknown',
+                        secondText: data['createdAt'] ?? '',
+                        caption: data['caption'] ?? '',
+                        answer: "Pending",
+                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                      );
+                    }).toList(),
+                  );
+                },
               ),
             ),
-            AnsweredTabBar(),
+            SingleChildScrollView(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: UploadPostServices().getPostsWhereIsAnswered(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                    return const Center(child: Text("No posts found"));
+                  }
+                  return Column(
+                    children: snapshot.data!.docs.map((doc) {
+                      final data = doc.data() as Map<String, dynamic>;
+                      return CustomProfilePost(
+                        name: data['name'] ?? 'Unknown',
+                        secondText: data['createdAt'] ?? '',
+                        caption: data['caption'] ?? '',
+                        answer: "",
+                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                      );
+                    }).toList(),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
@@ -179,61 +207,61 @@ class _QuestionsState extends State<Questions> {
 
 
 
-class TopBarExample extends StatefulWidget {
-  const TopBarExample({super.key});
-
-  @override
-  _TopBarExampleState createState() => _TopBarExampleState();
-}
-
-class _TopBarExampleState extends State<TopBarExample> {
-  int selectedIndex = 0;
-
-  final List<Widget> screens = const [
-    Center(child: Text("Home Screen", style: TextStyle(fontSize: 25))),
-    Center(child: Text("Profile Screen", style: TextStyle(fontSize: 25))),
-    Center(child: Text("Settings Screen", style: TextStyle(fontSize: 25))),
-  ];
-
-  void onButtonPressed(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  Widget buildButton(String text, int index) {
-    return Expanded(
-      child: ElevatedButton(
-        onPressed: () => onButtonPressed(index),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: selectedIndex == index ? Colors.blue : Colors.grey,
-        ),
-        child: Text(text),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text("Top Button Navigation")),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              buildButton("Home", 0),
-              buildButton("Profile", 1),
-              buildButton("Settings", 2),
-            ],
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.grey[200],
-              child: screens[selectedIndex],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
+// class TopBarExample extends StatefulWidget {
+//   const TopBarExample({super.key});
+//
+//   @override
+//   _TopBarExampleState createState() => _TopBarExampleState();
+// }
+//
+// class _TopBarExampleState extends State<TopBarExample> {
+//   int selectedIndex = 0;
+//
+//   final List<Widget> screens = const [
+//     Center(child: Text("Home Screen", style: TextStyle(fontSize: 25))),
+//     Center(child: Text("Profile Screen", style: TextStyle(fontSize: 25))),
+//     Center(child: Text("Settings Screen", style: TextStyle(fontSize: 25))),
+//   ];
+//
+//   void onButtonPressed(int index) {
+//     setState(() {
+//       selectedIndex = index;
+//     });
+//   }
+//
+//   Widget buildButton(String text, int index) {
+//     return Expanded(
+//       child: ElevatedButton(
+//         onPressed: () => onButtonPressed(index),
+//         style: ElevatedButton.styleFrom(
+//           backgroundColor: selectedIndex == index ? Colors.blue : Colors.grey,
+//         ),
+//         child: Text(text),
+//       ),
+//     );
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: const Text("Top Button Navigation")),
+//       body: Column(
+//         children: [
+//           Row(
+//             children: [
+//               buildButton("Home", 0),
+//               buildButton("Profile", 1),
+//               buildButton("Settings", 2),
+//             ],
+//           ),
+//           Expanded(
+//             child: Container(
+//               color: Colors.grey[200],
+//               child: screens[selectedIndex],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

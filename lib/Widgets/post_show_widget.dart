@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
+// import 'package:timeago/timeago.dart' as timeago;
 import '../Screens/dashboard_Screens/answers.dart';
 
 class CustomProfilePost extends StatefulWidget {
   final String name;
   final String secondText;
   final String caption;
-  final String profileImage;
+  final String answer;
+  // final String profileImage;
   final List<String>? onboardingImages;
 
   const CustomProfilePost({
@@ -16,7 +18,8 @@ class CustomProfilePost extends StatefulWidget {
     required this.name,
     required this.secondText,
     required this.caption,
-    required this.profileImage,
+    required this.answer,
+    // required this.profileImage,
     this.onboardingImages,
   });
 
@@ -29,6 +32,8 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
 
   @override
   Widget build(BuildContext context) {
+  int timestamp = int.parse(widget.secondText.toString());
+  final exactTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 12),
       decoration: BoxDecoration(
@@ -41,15 +46,16 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 18),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                ClipOval(
-                  child: Image.asset(
-                    widget.profileImage,
-                    height: 25,
-                    width: 25,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                // ClipOval(
+                //   child: Image.asset(
+                //     widget.profileImage,
+                //     height: 25,
+                //     width: 25,
+                //     fit: BoxFit.cover,
+                //   ),
+                // ),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,7 +68,7 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                       ),
                     ),
                     Text(
-                      widget.secondText,
+                      "${DateFormat('hh:mm').format(exactTime)} ago",
                       style: GoogleFonts.raleway(
                         fontSize: 11,
                         color: Colors.grey,
@@ -78,16 +84,16 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                       MaterialPageRoute(
                         builder: (context) => AnswersNavigator(
                           name: widget.name,
-                          secondText: widget.secondText,
+                          secondText: "${DateFormat('hh:mm').format(exactTime)} ago",
                           caption: widget.caption,
-                          profileImage: widget.profileImage,
+                          // profileImage: widget.profileImage,
                           onboardingImages: widget.onboardingImages ?? [],
                         ),
                       ),
                     );
                   },
-                  child: const Text(
-                    "Answer",
+                  child: Text(
+                    widget.answer.toString(),
                     style: TextStyle(color: Colors.green, fontSize: 11),
                   ),
                 ),

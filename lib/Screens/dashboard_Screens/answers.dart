@@ -7,7 +7,8 @@ class AnswersNavigator extends StatefulWidget {
   final String name;
   final String secondText;
   final String caption;
-  final String profileImage;
+
+  // final String profileImage;
   final List<String>? onboardingImages;
 
   const AnswersNavigator({
@@ -15,7 +16,7 @@ class AnswersNavigator extends StatefulWidget {
     required this.name,
     required this.secondText,
     required this.caption,
-    required this.profileImage,
+    // required this.profileImage,
     this.onboardingImages,
   });
 
@@ -25,6 +26,8 @@ class AnswersNavigator extends StatefulWidget {
 
 class _AnswersNavigatorState extends State<AnswersNavigator> {
   final PageController _controller = PageController();
+  TextEditingController answerController = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -58,14 +61,14 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: Row(
                   children: [
-                    ClipOval(
-                      child: Image.asset(
-                        widget.profileImage,
-                        height: 25,
-                        width: 25,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                    // ClipOval(
+                    //   child: Image.asset(
+                    //     widget.profileImage,
+                    //     height: 25,
+                    //     width: 25,
+                    //     fit: BoxFit.cover,
+                    //   ),
+                    // ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -144,6 +147,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                 ),
               const SizedBox(height: 10),
               TextFormField(
+                controller: answerController,
                 minLines: 5,
                 maxLines: 10,
                 style: const TextStyle(color: Colors.grey),
@@ -168,24 +172,40 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                 ),
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  minimumSize: Size(double.infinity, 50),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(10)
-                  )
-                ),
-                child: Text(
-                  "Answered",
-                  style: GoogleFonts.raleway(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+              isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : ElevatedButton(
+                      onPressed: () {
+                        if(answerController.text.isEmpty){
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Answered Box would not be Empty")));
+                          return;
+                        }
+                        try {
+                          isLoading = true;
+                          setState(() {});
+
+                        } catch (e) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(content: Text(e.toString())));
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        minimumSize: Size(double.infinity, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(10),
+                        ),
+                      ),
+                      child: Text(
+                        "Answered",
+                        style: GoogleFonts.raleway(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
             ],
           ),
         ),

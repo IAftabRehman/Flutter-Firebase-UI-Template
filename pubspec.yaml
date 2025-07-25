@@ -47,7 +47,8 @@ dependencies:
 #  flutter_dotenv: ^5.2.1 # for hiding API keys
   shared_preferences: ^2.5.3 # for locally stored data
   image_picker: ^1.1.2 # for Image picker
-
+  timeago: ^3.7.1 # for showing time ( convert into real wording )
+  intl: ^0.20.2 # for time formating
   flutter_svg: ^2.0.7 # for SVG icons
   supabase_flutter: ^2.9.1
 
