@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:internship_first_task/Data/Models/answeringModel.dart';
+import 'package:internship_first_task/Data/Services/AnsweringServices.dart';
 import 'package:internship_first_task/Screens/dashboard_Screens/questions.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -7,6 +10,7 @@ class AnswersNavigator extends StatefulWidget {
   final String name;
   final String secondText;
   final String caption;
+  final String postId;
 
   // final String profileImage;
   final List<String>? onboardingImages;
@@ -16,6 +20,7 @@ class AnswersNavigator extends StatefulWidget {
     required this.name,
     required this.secondText,
     required this.caption,
+    required this.postId,
     // required this.profileImage,
     this.onboardingImages,
   });
@@ -31,6 +36,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
 
   @override
   Widget build(BuildContext context) {
+  print("POST ID (docId) passed: ${widget.postId}");
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -175,16 +181,45 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
               isLoading
                   ? Center(child: CircularProgressIndicator())
                   : ElevatedButton(
-                      onPressed: () {
-                        if(answerController.text.isEmpty){
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Answered Box would not be Empty")));
+                      onPressed: () async {
+                        if (answerController.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Answered Box would not be Empty"),
+                            ),
+                          );
                           return;
                         }
                         try {
                           isLoading = true;
-                          setState(() {});
+                          setState(() {
+
+                          });
+
+                          // 1. Save the answer to `getAnswer` collection
+                          await AnsweringServices().getAnswer(
+                            AnsweringModel(
+                              answering: answerController.text,
+                              docId: widget.postId,
+                              createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
+                              // add other fields as needed
+                            ),
+                          );
+
+                          // 2. Update the 'answer' field in 'createPosts' where docId == widget.postId
+                          await FirebaseFirestore.instance
+                              .collection("createPost")
+                              .doc(widget.postId)
+                              .update({"answer": true});
+
+                          isLoading = false;
+                          setState(() {
+
+                          });
 
                         } catch (e) {
+                          isLoading = false;
+                          setState(() {});
                           ScaffoldMessenger.of(
                             context,
                           ).showSnackBar(SnackBar(content: Text(e.toString())));

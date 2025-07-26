@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-// import 'package:timeago/timeago.dart' as timeago;
 import '../Screens/dashboard_Screens/answers.dart';
 
 class CustomProfilePost extends StatefulWidget {
@@ -10,6 +9,8 @@ class CustomProfilePost extends StatefulWidget {
   final String secondText;
   final String caption;
   final String answer;
+  final String postId;
+
   // final String profileImage;
   final List<String>? onboardingImages;
 
@@ -19,6 +20,7 @@ class CustomProfilePost extends StatefulWidget {
     required this.secondText,
     required this.caption,
     required this.answer,
+    required this.postId,
     // required this.profileImage,
     this.onboardingImages,
   });
@@ -32,8 +34,8 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
 
   @override
   Widget build(BuildContext context) {
-  int timestamp = int.parse(widget.secondText.toString());
-  final exactTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    int timestamp = int.parse(widget.secondText.toString());
+    final exactTime = DateTime.fromMillisecondsSinceEpoch(timestamp);
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 12),
       decoration: BoxDecoration(
@@ -69,34 +71,43 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                     ),
                     Text(
                       "${DateFormat('hh:mm').format(exactTime)} ago",
-                      style: GoogleFonts.raleway(
-                        fontSize: 11,
+                      style: TextStyle(
+                        fontSize: 12,
                         color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
                 const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AnswersNavigator(
-                          name: widget.name,
-                          secondText: "${DateFormat('hh:mm').format(exactTime)} ago",
-                          caption: widget.caption,
-                          // profileImage: widget.profileImage,
-                          onboardingImages: widget.onboardingImages ?? [],
+                widget.answer == "Answered"
+                    ? TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AnswersNavigator(
+                                name: widget.name,
+                                secondText:
+                                    "${DateFormat('hh:mm').format(exactTime)} ago",
+                                caption: widget.caption,
+                                postId: widget.postId,
+                                // profileImage: widget.profileImage,
+                                onboardingImages: widget.onboardingImages ?? [],
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          widget.answer.toString(),
+                          style: TextStyle(color: Colors.green, fontSize: 11),
                         ),
-                      ),
-                    );
-                  },
-                  child: Text(
-                    widget.answer.toString(),
-                    style: TextStyle(color: Colors.green, fontSize: 11),
-                  ),
-                ),
+                      )
+                    : widget.answer == "Pending"
+                    ? Text(
+                        widget.answer.toString(),
+                        style: TextStyle(color: Colors.green, fontSize: 11),
+                      )
+                    : SizedBox(),
               ],
             ),
           ),
@@ -158,7 +169,6 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
     );
   }
 }
-
 
 class OnBoardingImage extends StatelessWidget {
   OnBoardingImage({super.key});

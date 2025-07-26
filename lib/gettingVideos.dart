@@ -143,6 +143,7 @@ class AllTabContent extends StatelessWidget {
               name: data['name'] ?? 'No Name',
               secondText: data['time'] ?? '',
               caption: data['caption'] ?? '',
+              postId: data['postId'],
               profileImage: data['image'] ?? 'assets/images/questions_profile_1.jpg',
               onboardingImages: List<String>.from(data['images'] ?? []),
             );
@@ -159,6 +160,7 @@ class CustomProfileContainer extends StatefulWidget {
   final String secondText;
   final String caption;
   final String profileImage;
+  final String postId;
   final List<String>? onboardingImages;
 
   const CustomProfileContainer({
@@ -167,6 +169,7 @@ class CustomProfileContainer extends StatefulWidget {
     required this.secondText,
     required this.caption,
     required this.profileImage,
+    required this.postId,
     this.onboardingImages,
   });
 
@@ -231,6 +234,7 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
                         name: widget.name,
                         secondText: widget.secondText,
                         caption: widget.caption,
+                        postId: widget.postId,
                         // profileImage: widget.profileImage,
                         onboardingImages: widget.onboardingImages ?? [],
                       ),

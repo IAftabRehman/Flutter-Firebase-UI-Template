@@ -4,7 +4,7 @@ import 'package:internship_first_task/Data/Models/uploadPostModel.dart';
 class UploadPostServices {
   Future UploadPost(UploadPostModel model) async {
     return FirebaseFirestore.instance
-        .collection("createPosts")
+        .collection("createPost")
         .add(model.toJson());
   }
 
@@ -29,4 +29,5 @@ class UploadPostServices {
         .where("answer", isEqualTo: true)
         .snapshots();
   }
+
 }

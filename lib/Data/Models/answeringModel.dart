@@ -6,28 +6,28 @@ String taskModelToJson(AnsweringModel data) => json.encode(data.toJson());
 
 class AnsweringModel {
   final String? name;
-  final String? time;
+  final String? createdAt;
   final String? answering;
   final String? docId;
 
 
   AnsweringModel({
     this.name,
-    this.time,
+    this.createdAt,
     this.answering,
     this.docId,
   });
 
   factory AnsweringModel.fromJson(Map<String, dynamic> json) => AnsweringModel(
     name: json["name"],
-    time: json["time"],
+    createdAt: json["createdAt"],
     answering: json["answering"],
     docId: json["docId"],
   );
 
   Map<String, dynamic> toJson() => {
     "name": name,
-    "time": time,
+    "createdAt": createdAt,
     "answering": answering,
     "docId": docId,
   };

@@ -139,6 +139,7 @@ class _QuestionsState extends State<Questions> {
                         secondText: data['createdAt'] ?? '',
                         caption: data['caption'] ?? '',
                         answer: "Answered",
+                        postId: doc.id,
                         onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
                       );
                     }).toList(),
@@ -164,6 +165,7 @@ class _QuestionsState extends State<Questions> {
                         secondText: data['createdAt'] ?? '',
                         caption: data['caption'] ?? '',
                         answer: "Pending",
+                        postId: "docId",
                         onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
                       );
                     }).toList(),
@@ -189,6 +191,7 @@ class _QuestionsState extends State<Questions> {
                         secondText: data['createdAt'] ?? '',
                         caption: data['caption'] ?? '',
                         answer: "",
+                        postId: doc.id,
                         onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
                       );
                     }).toList(),
