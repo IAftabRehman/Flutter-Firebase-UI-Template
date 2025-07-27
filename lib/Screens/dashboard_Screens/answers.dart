@@ -11,8 +11,7 @@ class AnswersNavigator extends StatefulWidget {
   final String secondText;
   final String caption;
   final String postId;
-
-  // final String profileImage;
+  final String profileImage;
   final List<String>? onboardingImages;
 
   const AnswersNavigator({
@@ -21,7 +20,7 @@ class AnswersNavigator extends StatefulWidget {
     required this.secondText,
     required this.caption,
     required this.postId,
-    // required this.profileImage,
+    required this.profileImage,
     this.onboardingImages,
   });
 
@@ -67,14 +66,14 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 child: Row(
                   children: [
-                    // ClipOval(
-                    //   child: Image.asset(
-                    //     widget.profileImage,
-                    //     height: 25,
-                    //     width: 25,
-                    //     fit: BoxFit.cover,
-                    //   ),
-                    // ),
+                    ClipOval(
+                      child: Image.network(
+                        widget.profileImage,
+                        height: 25,
+                        width: 25,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                     const SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,7 +123,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                         controller: _controller,
                         itemCount: widget.onboardingImages!.length,
                         itemBuilder: (context, i) {
-                          return Image.asset(
+                          return Image.network(
                             widget.onboardingImages![i],
                             fit: BoxFit.cover,
                             width: double.infinity,

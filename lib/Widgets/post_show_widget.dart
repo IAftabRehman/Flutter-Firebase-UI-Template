@@ -10,8 +10,7 @@ class CustomProfilePost extends StatefulWidget {
   final String caption;
   final String answer;
   final String postId;
-
-  // final String profileImage;
+  final String profileImage;
   final List<String>? onboardingImages;
 
   const CustomProfilePost({
@@ -21,7 +20,7 @@ class CustomProfilePost extends StatefulWidget {
     required this.caption,
     required this.answer,
     required this.postId,
-    // required this.profileImage,
+    required this.profileImage,
     this.onboardingImages,
   });
 
@@ -50,14 +49,14 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // ClipOval(
-                //   child: Image.asset(
-                //     widget.profileImage,
-                //     height: 25,
-                //     width: 25,
-                //     fit: BoxFit.cover,
-                //   ),
-                // ),
+                ClipOval(
+                  child: Image.network(
+                    widget.profileImage,
+                    height: 25,
+                    width: 25,
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 const SizedBox(width: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +90,7 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                                     "${DateFormat('hh:mm').format(exactTime)} ago",
                                 caption: widget.caption,
                                 postId: widget.postId,
-                                // profileImage: widget.profileImage,
+                                profileImage: widget.profileImage,
                                 onboardingImages: widget.onboardingImages ?? [],
                               ),
                             ),
@@ -99,13 +98,13 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                         },
                         child: Text(
                           widget.answer.toString(),
-                          style: TextStyle(color: Colors.green, fontSize: 11),
+                          style: TextStyle(color: Colors.green, fontSize: 12),
                         ),
                       )
                     : widget.answer == "Pending"
                     ? Text(
                         widget.answer.toString(),
-                        style: TextStyle(color: Colors.green, fontSize: 11),
+                        style: TextStyle(color: Colors.green, fontSize: 12),
                       )
                     : SizedBox(),
               ],
@@ -122,11 +121,7 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
               ),
             ),
           ),
-
-          if (widget.onboardingImages != null &&
-              widget.onboardingImages!.isNotEmpty)
-            const SizedBox(height: 10),
-
+          const SizedBox(height: 10),
           if (widget.onboardingImages != null &&
               widget.onboardingImages!.isNotEmpty)
             Stack(
@@ -137,7 +132,7 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                     controller: _controller,
                     itemCount: widget.onboardingImages!.length,
                     itemBuilder: (context, i) {
-                      return Image.asset(
+                      return Image.network(
                         widget.onboardingImages![i],
                         fit: BoxFit.cover,
                         width: double.infinity,
@@ -154,8 +149,8 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
                       controller: _controller,
                       count: widget.onboardingImages!.length,
                       effect: const SwapEffect(
-                        dotHeight: 10,
-                        dotWidth: 10,
+                        dotHeight: 7,
+                        dotWidth: 7,
                         activeDotColor: Colors.white,
                         dotColor: Colors.white54,
                       ),
@@ -166,61 +161,6 @@ class _CustomProfilePostState extends State<CustomProfilePost> {
             ),
         ],
       ),
-    );
-  }
-}
-
-class OnBoardingImage extends StatelessWidget {
-  OnBoardingImage({super.key});
-
-  final PageController controller = PageController();
-  final List<String> imagePaths = const [
-    "assets/images/questions.png",
-    "assets/images/questions.png",
-    "assets/images/questions.png",
-    "assets/images/questions.png",
-    "assets/images/questions.png",
-    "assets/images/questions.png",
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 200,
-          child: PageView.builder(
-            controller: controller,
-            itemCount: imagePaths.length,
-            itemBuilder: (context, i) {
-              return Image.asset(
-                imagePaths[i],
-                fit: BoxFit.cover,
-                width: double.infinity,
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 10),
-        Positioned(
-          top: 160,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: Center(
-            child: SmoothPageIndicator(
-              controller: controller,
-              count: imagePaths.length,
-              effect: const SwapEffect(
-                dotHeight: 10,
-                dotWidth: 10,
-                activeDotColor: Colors.white,
-                dotColor: Colors.white54,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

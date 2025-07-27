@@ -11,7 +11,7 @@ class RegistrationServices{
         .add(model.toJson());
   }
 
-  static const String imgbbApiKey = "Your OWN API";
+  static const String imgbbApiKey = "Your Own API";
 
   static Future<String?> uploadImageToImgbb(File imageFile) async {
     try {

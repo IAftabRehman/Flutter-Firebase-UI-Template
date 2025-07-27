@@ -140,7 +140,8 @@ class _QuestionsState extends State<Questions> {
                         caption: data['caption'] ?? '',
                         answer: "Answered",
                         postId: doc.id,
-                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                        profileImage: data["profileImage"],
+                        onboardingImages: List<String>.from(data['images'] ?? []),
                       );
                     }).toList(),
                   );
@@ -166,7 +167,8 @@ class _QuestionsState extends State<Questions> {
                         caption: data['caption'] ?? '',
                         answer: "Pending",
                         postId: "docId",
-                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                        profileImage: data["profileImage"],
+                        onboardingImages: List<String>.from(data['images'] ?? []),
                       );
                     }).toList(),
                   );
@@ -192,7 +194,8 @@ class _QuestionsState extends State<Questions> {
                         caption: data['caption'] ?? '',
                         answer: "",
                         postId: doc.id,
-                        onboardingImages: List<String>.from(data['onboardingImages'] ?? []),
+                        profileImage: data["profileImage"],
+                        onboardingImages: List<String>.from(data['images'] ?? []),
                       );
                     }).toList(),
                   );
@@ -206,65 +209,3 @@ class _QuestionsState extends State<Questions> {
   }
 }
 
-
-
-
-
-// class TopBarExample extends StatefulWidget {
-//   const TopBarExample({super.key});
-//
-//   @override
-//   _TopBarExampleState createState() => _TopBarExampleState();
-// }
-//
-// class _TopBarExampleState extends State<TopBarExample> {
-//   int selectedIndex = 0;
-//
-//   final List<Widget> screens = const [
-//     Center(child: Text("Home Screen", style: TextStyle(fontSize: 25))),
-//     Center(child: Text("Profile Screen", style: TextStyle(fontSize: 25))),
-//     Center(child: Text("Settings Screen", style: TextStyle(fontSize: 25))),
-//   ];
-//
-//   void onButtonPressed(int index) {
-//     setState(() {
-//       selectedIndex = index;
-//     });
-//   }
-//
-//   Widget buildButton(String text, int index) {
-//     return Expanded(
-//       child: ElevatedButton(
-//         onPressed: () => onButtonPressed(index),
-//         style: ElevatedButton.styleFrom(
-//           backgroundColor: selectedIndex == index ? Colors.blue : Colors.grey,
-//         ),
-//         child: Text(text),
-//       ),
-//     );
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(title: const Text("Top Button Navigation")),
-//       body: Column(
-//         children: [
-//           Row(
-//             children: [
-//               buildButton("Home", 0),
-//               buildButton("Profile", 1),
-//               buildButton("Settings", 2),
-//             ],
-//           ),
-//           Expanded(
-//             child: Container(
-//               color: Colors.grey[200],
-//               child: screens[selectedIndex],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }

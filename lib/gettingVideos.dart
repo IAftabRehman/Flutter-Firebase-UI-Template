@@ -235,7 +235,7 @@ class _CustomProfileContainerState extends State<CustomProfileContainer> {
                         secondText: widget.secondText,
                         caption: widget.caption,
                         postId: widget.postId,
-                        // profileImage: widget.profileImage,
+                        profileImage: widget.profileImage,
                         onboardingImages: widget.onboardingImages ?? [],
                       ),
                     ),
