@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
 
                           });
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("sadfasd")),
+                            SnackBar(content: Text(e.toString())),
                           );
                         }
                       },

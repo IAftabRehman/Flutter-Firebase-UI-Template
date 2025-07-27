@@ -50,7 +50,8 @@ dependencies:
   timeago: ^3.7.1 # for showing time ( convert into real wording )
   intl: ^0.20.2 # for time formating
   flutter_svg: ^2.0.7 # for SVG icons
-  supabase_flutter: ^2.9.1
+#  supabase_flutter: ^2.9.1
+  http: ^1.4.0 # for API (Image uploading and Image getting)
 
 dev_dependencies:
   flutter_test:
