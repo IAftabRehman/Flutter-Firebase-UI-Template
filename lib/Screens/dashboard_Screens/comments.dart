@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../Widgets/comment_show_widget.dart';
+import '../../Widgets/comment_on_post_widget.dart';
 
 class Comments extends StatelessWidget {
   const Comments({super.key});
@@ -104,7 +104,7 @@ class Comments extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  const CustomCommentsWidget(
+                  const comment_on_post_widget(
                     profile: "assets/images/questions_profile_1.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
@@ -112,7 +112,7 @@ class Comments extends StatelessWidget {
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
                   const Divider(height: 1.5),
-                  CustomCommentsWidget(
+                  comment_on_post_widget(
                     profile: "assets/images/questions_profile_2.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
@@ -120,7 +120,7 @@ class Comments extends StatelessWidget {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
                   const Divider(height: 1.5),
-                  const CustomCommentsWidget(
+                  const comment_on_post_widget(
                     profile: "assets/images/questions_profile_3.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
@@ -128,7 +128,7 @@ class Comments extends StatelessWidget {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
                   const Divider(height: 1.5),
-                  const CustomCommentsWidget(
+                  const comment_on_post_widget(
                     profile: "assets/images/questions_profile_4.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
@@ -136,7 +136,7 @@ class Comments extends StatelessWidget {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
                   const Divider(height: 1.5),
-                  const CustomCommentsWidget(
+                  const comment_on_post_widget(
                     profile: "assets/images/questions_profile_1.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",
@@ -144,7 +144,7 @@ class Comments extends StatelessWidget {
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pulvinar ante id netus sit congue justo. Felis, volutpat sit senectus tempor, aliquam. Tellus proin enim orci in ullamcorper egestas dolor. Dictumst sed.",
                   ),
                   const Divider(height: 1.5),
-                  const CustomCommentsWidget(
+                  const comment_on_post_widget(
                     profile: "assets/images/questions_profile_2.jpg",
                     name: "Aftab",
                     date: "15/ 63/ 2002",

@@ -52,6 +52,7 @@ class _Registration2State extends State<Registration2> {
       }
     }
   }
+
   Future<void> degreeImage() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -88,88 +89,96 @@ class _Registration2State extends State<Registration2> {
       isLoading = true;
       setState(() {});
       AuthenticationServices()
-          .registerUser(
-        email: widget.email,
-        password: widget.password,
-      ).then((val) async {
-      await RegistrationServices().createAccount(
-        RegistrationModel(
-          name: widget.name,
-          email: widget.email,
-          password: widget.password,
-          profileImage: profileURL,
-          expertise: expertise.toString(),
-          qualification: qualification.text,
-          degreeImage: degreeURL,
-          address: address.text,
-          contact: contact.text,
-          docId: DateTime.now().millisecondsSinceEpoch.toString(),
-          createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
-        ),
-      );
-      isLoading = false;
-      setState(() {});
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          return AlertDialog(
-            content: SizedBox(
-              height: 250,
-              width: 400,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Icon(Icons.done_all, color: Colors.green, size: 50),
-                  const SizedBox(height: 20),
-                  Text(
-                    "Account Created",
-                    style: GoogleFonts.raleway(
-                      fontSize: 23.03,
-                      fontWeight: FontWeight.w700,
-                      color: const Color(0xff292929),
-                    ),
+          .registerUser(email: widget.email, password: widget.password)
+          .then((val) async {
+            await RegistrationServices()
+                .createAccount(
+                  RegistrationModel(
+                    name: widget.name,
+                    email: widget.email,
+                    password: widget.password,
+                    profileImage: profileURL,
+                    expertise: expertise.toString(),
+                    qualification: qualification.text,
+                    degreeImage: degreeURL,
+                    address: address.text,
+                    contact: contact.text,
+                    docId: val!.uid.toString(),
+                    createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
                   ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "You can now access your account",
-                    style: GoogleFonts.raleway(
-                      fontSize: 13.33,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xffB4B4B4),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Login()),
+                )
+                .then((val) {
+                  isLoading = false;
+                  setState(() {});
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) {
+                      return AlertDialog(
+                        content: SizedBox(
+                          height: 250,
+                          width: 400,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.done_all,
+                                color: Colors.green,
+                                size: 50,
+                              ),
+                              const SizedBox(height: 20),
+                              Text(
+                                "Account Created",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 23.03,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xff292929),
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                "You can now access your account",
+                                style: GoogleFonts.raleway(
+                                  fontSize: 13.33,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xffB4B4B4),
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => Login(),
+                                    ),
+                                  );
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xff339D44),
+                                  minimumSize: Size(double.infinity, 50),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                ),
+                                child: Text(
+                                  "Login",
+                                  style: GoogleFonts.raleway(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff339D44),
-                      minimumSize: Size(double.infinity, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(
-                      "Login",
-                      style: GoogleFonts.raleway(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );});
+                  );
+                });
+          });
     } catch (e) {
       ScaffoldMessenger.of(
         context,
@@ -217,7 +226,7 @@ class _Registration2State extends State<Registration2> {
                 const SizedBox(height: 20),
                 InkWell(
                   onTap: profileImage,
-                  child:ImagePickerWidget(imageType: 'Profile'),
+                  child: ImagePickerWidget(imageType: 'Profile'),
                 ),
                 const SizedBox(height: 15),
                 CustomDropDownWidget(
@@ -234,8 +243,9 @@ class _Registration2State extends State<Registration2> {
                 ),
                 const SizedBox(height: 15),
                 InkWell(
-                    onTap: degreeImage,
-                    child: ImagePickerWidget(imageType: "Degree")),
+                  onTap: degreeImage,
+                  child: ImagePickerWidget(imageType: "Degree"),
+                ),
                 const SizedBox(height: 15),
                 Container(
                   height: 110,
@@ -330,10 +340,13 @@ class _Registration2State extends State<Registration2> {
 // This is a widget, where is only use for DropDown
 class CustomDropDownWidget extends StatefulWidget {
   final ValueChanged<String?> onChanged;
+
   const CustomDropDownWidget({super.key, required this.onChanged});
+
   @override
   _CustomDropDownWidgetState createState() => _CustomDropDownWidgetState();
 }
+
 class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
   final List<String> _expertiseList = const [
     'Flutter',
@@ -345,6 +358,7 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
     'Video Editing',
   ];
   String? _selectedExpertise;
+
   @override
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
@@ -373,11 +387,13 @@ class _CustomDropDownWidgetState extends State<CustomDropDownWidget> {
 // This is a widget, where is only use for Image Container
 class ImagePickerWidget extends StatefulWidget {
   final String imageType;
+
   ImagePickerWidget({super.key, required this.imageType});
 
   @override
   State<ImagePickerWidget> createState() => _ImagePickerWidgetState();
 }
+
 class _ImagePickerWidgetState extends State<ImagePickerWidget> {
   final picker = ImagePicker();
 
@@ -398,7 +414,10 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               children: [
-                Text("Upload ${widget.imageType} Image", style: const TextStyle(color: Colors.black)),
+                Text(
+                  "Upload ${widget.imageType} Image",
+                  style: const TextStyle(color: Colors.black),
+                ),
                 const Spacer(),
                 SizedBox(
                   width: 30,
@@ -416,5 +435,3 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
     );
   }
 }
-
-

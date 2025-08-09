@@ -125,13 +125,26 @@ class _LoginState extends State<Login> {
                                     return AlertDialog(
                                       title: Text("Successfully Logged In"),
                                       actions: [
-                                        TextButton(onPressed: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context)=>CustomBottomBarWidget()));
+                                        TextButton(onPressed: () {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CustomBottomBarWidget()));
                                         }, child: Text("Next Page"))
                                       ],
                                     );
                                   });
                             }
+                            // else {
+                            //   showDialog(
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return AlertDialog(
+                            //           title: Text("Message"),
+                            //           content: Text("Please verify your email"),
+                            //         );
+                            //       });
+                            // }
                           });
                         } catch (e) {
                           isLoading = false;

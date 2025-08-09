@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'Screens/onBoarding/splashScreen.dart';
+import 'package:internship_first_task/Screens/onBoarding/onboardingScreens.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SplashScreen()
+        home: OnBoardingScreen()
     );
   }
 }

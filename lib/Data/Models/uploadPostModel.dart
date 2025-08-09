@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 UploadPostModel taskModelFromJson(String str) => UploadPostModel.fromJson(json.decode(str));
-
 String taskModelToJson(UploadPostModel data) => json.encode(data.toJson());
 
 class UploadPostModel {

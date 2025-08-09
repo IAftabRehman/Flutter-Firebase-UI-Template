@@ -52,6 +52,7 @@ dependencies:
   flutter_svg: ^2.0.7 # for SVG icons
 #  supabase_flutter: ^2.9.1
   http: ^1.4.0 # for API (Image uploading and Image getting)
+  video_player: ^2.10.0 # for Video Player
 
 dev_dependencies:
   flutter_test:

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomCommentsWidget extends StatelessWidget {
+class comment_on_post_widget extends StatelessWidget {
   final String profile;
   final String name;
   final String date;
   final String comment;
 
-  const CustomCommentsWidget({
+  const comment_on_post_widget({
     required this.profile,
     required this.name,
     required this.date,

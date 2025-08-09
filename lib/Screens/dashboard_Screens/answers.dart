@@ -195,8 +195,7 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
 
                           });
 
-                          // 1. Save the answer to `getAnswer` collection
-                          await AnsweringServices().getAnswer(
+                          await AnsweringServices().comment_on_post(
                             AnsweringModel(
                               answering: answerController.text,
                               docId: widget.postId,
@@ -205,7 +204,6 @@ class _AnswersNavigatorState extends State<AnswersNavigator> {
                             ),
                           );
 
-                          // 2. Update the 'answer' field in 'createPosts' where docId == widget.postId
                           await FirebaseFirestore.instance
                               .collection("createPost")
                               .doc(widget.postId)
