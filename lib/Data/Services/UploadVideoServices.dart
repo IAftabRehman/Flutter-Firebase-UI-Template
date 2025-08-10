@@ -19,8 +19,8 @@ class UploadVideoServices {
   }
 
   Future<String?> uploadVideoToCloudinary(File videoFile) async {
-    final cloudName = 'Your Own API';
-    final uploadPreset = 'Your Own Name';
+    final cloudName = 'Your Cloud Name';
+    final uploadPreset = '--';
     final uri = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/video/upload");
 
     var request = http.MultipartRequest('POST', uri)
@@ -47,6 +47,8 @@ class UploadVideoServices {
   Stream<QuerySnapshot> gettingLatestVideos() {
     return FirebaseFirestore.instance.collection('uploadVideo').orderBy('createdAt', descending: true).snapshots();
   }
+
+
 
   Stream<QuerySnapshot> getComments(String extraId) {
     return FirebaseFirestore.instance.collection('uploadPost').snapshots();

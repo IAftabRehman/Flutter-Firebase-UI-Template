@@ -1,24 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_first_task/Data/Models/answeringModel.dart';
 import 'package:internship_first_task/Data/Services/AnsweringServices.dart';
+import 'package:internship_first_task/Widgets/video_show_widget.dart';
+import '../Data/Services/UploadVideoServices.dart';
 
-class comment_on_video_widget extends StatelessWidget {
-  // final String profile;
-  // final String name;
-  // final String date;
-  // final String comment;
-  //
-  // const comment_on_video_widget({
-  //   required this.profile,
-  //   required this.name,
-  //   required this.date,
-  //   required this.comment,
-  //   super.key,
-  // });
+class comment_on_video_widget extends StatefulWidget {
+  @override
+  State<comment_on_video_widget> createState() =>
+      _comment_on_video_widgetState();
+}
 
-
-
+class _comment_on_video_widgetState extends State<comment_on_video_widget> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -66,21 +60,39 @@ class comment_on_video_widget extends StatelessWidget {
             ),
           ),
         ),
-        body: TabBarView(
-          children: [
-            allComments(),
-            allComments(),
-            allComments(),
-          ],
-        ),
+        body: TabBarView(children: [allComments(), first(), first()]),
       ),
     );
   }
 }
 
-class allComments extends StatelessWidget {
+class allComments extends StatefulWidget {
   allComments({super.key});
+
+  @override
+  State<allComments> createState() => _allCommentsState();
+}
+
+class _allCommentsState extends State<allComments> {
   TextEditingController typeComment = TextEditingController();
+  // String currentName = "";
+  // String profileImage = "";
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadUserData();
+  // }
+  //
+  // Future<void> _loadUserData() async {
+  //   AnsweringServices hello = AnsweringServices();
+  //   String name = await hello.currentVideoCommentUserName();
+  //   String image = await hello.currentVideoCommentProfileImage();
+  //   setState(() {
+  //     currentName = name;
+  //     profileImage = image;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -95,61 +107,154 @@ class allComments extends StatelessWidget {
                 controller: typeComment,
                 decoration: InputDecoration(
                   labelText: "Comment...",
-                  suffixIcon: IconButton(icon: Icon(Icons.send), onPressed: (){
-                    AnsweringServices().comment_on_video(AnsweringModel(
-                      docId: DateTime.now().microsecondsSinceEpoch.toString(),
-                      answering: typeComment.text,
-                      createdAt: DateTime.now().millisecondsSinceEpoch.toString()
-                    ));
-                  })
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.send),
+                    onPressed: () async {
+                      if (typeComment.text.trim().isEmpty) return;
+
+                      // Fetch latest name & image at send time
+                      String name = await AnsweringServices().currentVideoCommentUserName();
+                      String image = await AnsweringServices().currentVideoCommentProfileImage();
+
+                      await AnsweringServices().comment_on_video(
+                        AnsweringModel(
+                          docId: DateTime.now().microsecondsSinceEpoch.toString(),
+                          answering: typeComment.text.trim(),
+                          createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
+                          name: name,
+                          profileImage: image,
+                        ),
+                      );
+
+                      typeComment.clear();
+                    },
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipOval(
-                    child: Image.asset(
-                      "assets/images/questions_profile_1.jpg",
-                      height: 40,
-                      width: 40,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "name",
-                          style: GoogleFonts.raleway(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        Text(
-                          "date",
-                          style: GoogleFonts.raleway(
-                            fontSize: 12,
-                            color: Color(0xffB4B4B4),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "comment",
-                          style: GoogleFonts.raleway(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              SingleChildScrollView(
+                child: StreamBuilder<QuerySnapshot>(
+                  stream: AnsweringServices().getComments(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                      return const Center(child: Text("No comments found"));
+                    }
+
+                    return Column(
+                      children: snapshot.data!.docs.map((doc) {
+                        final data = doc.data() as Map<String, dynamic>;
+
+                        final name = data['name'] ?? "Unknown User";
+                        final profileImage =
+                            data['profileImage'] ??
+                            "assets/images/questions_profile_1.jpg";
+                        final comment = data['answering'] ?? "";
+                        final date = data['createdAt'] != null
+                            ? DateTime.fromMillisecondsSinceEpoch(
+                                int.tryParse(data['createdAt']) ?? 0,
+                              )
+                            : null;
+
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ClipOval(
+                              child: profileImage.startsWith("http")
+                                  ? Image.network(
+                                      profileImage,
+                                      height: 40,
+                                      width: 40,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.asset(
+                                      profileImage,
+                                      height: 40,
+                                      width: 40,
+                                      fit: BoxFit.cover,
+                                    ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    name,
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  Text(
+                                    date != null
+                                        ? "${date.day}/${date.month}/${date.year}"
+                                        : "",
+                                    style: GoogleFonts.raleway(
+                                      fontSize: 12,
+                                      color: const Color(0xffB4B4B4),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    comment,
+                                    style: GoogleFonts.raleway(fontSize: 14),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    );
+                  },
+                ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class first extends StatefulWidget {
+  const first({super.key});
+
+  @override
+  State<first> createState() => _firstState();
+}
+
+class _firstState extends State<first> {
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: UploadVideoServices().gettingLatestVideos(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+          return const Center(child: Text("No posts found"));
+        }
+        return Column(
+          children: snapshot.data!.docs.map((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return CustomVideoWidget(
+              caption: data['videoTitle'] ?? 'Unknown',
+              // description: data['videoDescription'] ?? '',
+              docId: doc.id,
+              video: data['uploadVideo'] ?? '',
+              uploadDate: data['createdAt'] ?? '',
+              thumbnail: data["uploadThumbnail"] ?? '',
+              views: int.tryParse(data['views'].toString()) ?? 0,
+            );
+          }).toList(),
+        );
+      },
     );
   }
 }

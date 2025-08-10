@@ -9,6 +9,7 @@ class AnsweringModel {
   final String? createdAt;
   final String? answering;
   final String? docId;
+  final String? profileImage;
 
 
   AnsweringModel({
@@ -16,6 +17,7 @@ class AnsweringModel {
     this.createdAt,
     this.answering,
     this.docId,
+    this.profileImage
   });
 
   factory AnsweringModel.fromJson(Map<String, dynamic> json) => AnsweringModel(
@@ -23,6 +25,7 @@ class AnsweringModel {
     createdAt: json["createdAt"],
     answering: json["answering"],
     docId: json["docId"],
+    profileImage: json['profileImage']
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,6 +33,7 @@ class AnsweringModel {
     "createdAt": createdAt,
     "answering": answering,
     "docId": docId,
+    "profileImage": profileImage
   };
 
 }
