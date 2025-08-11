@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_first_task/Screens/dashboard_Screens/edit_profile.dart';
 import 'package:internship_first_task/Screens/dashboard_Screens/reviewDetails.dart';
 import 'package:internship_first_task/Screens/dashboard_Screens/settings.dart';
-
 import '../../Widgets/review_show_widget.dart';
 
 class Profile extends StatelessWidget {

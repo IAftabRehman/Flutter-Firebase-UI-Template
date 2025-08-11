@@ -19,8 +19,8 @@ class UploadVideoServices {
   }
 
   Future<String?> uploadVideoToCloudinary(File videoFile) async {
-    final cloudName = 'Your Cloud Name';
-    final uploadPreset = '--';
+    final cloudName = 'your own cloudery';
+    final uploadPreset = 'internship_first_task';
     final uri = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/video/upload");
 
     var request = http.MultipartRequest('POST', uri)
@@ -38,6 +38,8 @@ class UploadVideoServices {
       return null;
     }
   }
+
+
 
 
   Stream<QuerySnapshot> gettingVideos() {

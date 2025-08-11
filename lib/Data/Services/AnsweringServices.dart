@@ -15,9 +15,10 @@ class AnsweringServices {
         .add(model.toJson());
   }
 
-  final uid = FirebaseAuth.instance.currentUser?.uid;
+  // final uid = FirebaseAuth.instance.currentUser?.uid;
+  String? get uid => FirebaseAuth.instance.currentUser?.uid;
 
-  Future<String> currentVideoCommentUserName() async {
+  Future<String> currentVideoCommentUser_Name() async {
     if (uid == null) return "Unknown User";
 
     final snapshot = await FirebaseFirestore.instance
@@ -30,8 +31,7 @@ class AnsweringServices {
     }
     return "Unknown User";
   }
-
-  Future<String> currentVideoCommentProfileImage() async {
+  Future<String> currentVideoCommentProfile_Image() async {
     if (uid == null) return "assets/images/questions_profile_1.jpg";
 
     final snapshot = await FirebaseFirestore.instance
@@ -46,8 +46,38 @@ class AnsweringServices {
     return "assets/images/questions_profile_1.jpg";
   }
 
+
   Stream<QuerySnapshot> getComments() {
     return FirebaseFirestore.instance.collection('videoComments').snapshots();
   }
+
+
+  Future<String> getCurrentUserName() async {
+    if (uid == null) return "Unknown User";
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('createAccount')
+        .where('docId', isEqualTo: uid)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isNotEmpty) {
+      return snapshot.docs.first.data()['name'] ?? "Unknown User";
+    }
+    return "Unknown User";
+  }
+
+  Future<String> getCurrentUserProfileImage() async {
+    if (uid == null) return "assets/images/questions_profile_1.jpg";
+
+    final snapshot = await FirebaseFirestore.instance
+        .collection('createAccount')
+        .doc(uid)
+        .get();
+
+    return snapshot.data()?['profileImage'] ??
+        "assets/images/questions_profile_1.jpg";
+  }
+
 
 }

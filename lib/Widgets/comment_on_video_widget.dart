@@ -75,147 +75,127 @@ class allComments extends StatefulWidget {
 
 class _allCommentsState extends State<allComments> {
   TextEditingController typeComment = TextEditingController();
-  // String currentName = "";
-  // String profileImage = "";
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadUserData();
-  // }
-  //
-  // Future<void> _loadUserData() async {
-  //   AnsweringServices hello = AnsweringServices();
-  //   String name = await hello.currentVideoCommentUserName();
-  //   String image = await hello.currentVideoCommentProfileImage();
-  //   setState(() {
-  //     currentName = name;
-  //     profileImage = image;
-  //   });
-  // }
+
+  String? currentName;
+  String? currentImage;
 
   @override
+  void initState() {
+    super.initState();
+    () async {
+      currentName = await AnsweringServices().getCurrentUserName();
+      currentImage = await AnsweringServices().getCurrentUserProfileImage();
+      setState(() {});
+    }();
+  }
+  @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Expanded(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              TextField(
-                controller: typeComment,
-                decoration: InputDecoration(
-                  labelText: "Comment...",
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.send),
-                    onPressed: () async {
-                      if (typeComment.text.trim().isEmpty) return;
-
-                      // Fetch latest name & image at send time
-                      String name = await AnsweringServices().currentVideoCommentUserName();
-                      String image = await AnsweringServices().currentVideoCommentProfileImage();
-
-                      await AnsweringServices().comment_on_video(
-                        AnsweringModel(
-                          docId: DateTime.now().microsecondsSinceEpoch.toString(),
-                          answering: typeComment.text.trim(),
-                          createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
-                          name: name,
-                          profileImage: image,
-                        ),
-                      );
-
-                      typeComment.clear();
-                    },
-                  ),
-                ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      child: Column(
+        children: [
+          // Input field
+          TextField(
+            controller: typeComment,
+            decoration: InputDecoration(
+              labelText: "Comment...",
+              suffixIcon: IconButton(
+                icon: const Icon(Icons.send),
+                onPressed: () async {
+                  if (typeComment.text.trim().isEmpty) return;
+                  await AnsweringServices().comment_on_video(
+                    AnsweringModel(
+                      docId: DateTime.now().microsecondsSinceEpoch.toString(),
+                      answering: typeComment.text.trim(),
+                      createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
+                      name: currentName ?? "Unknown User",
+                      profileImage: currentImage ?? "assets/images/questions_profile_1.jpg",
+                    ),
+                  );
+                  typeComment.clear();
+                },
               ),
-              const SizedBox(height: 20),
-              SingleChildScrollView(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: AnsweringServices().getComments(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                      return const Center(child: Text("No comments found"));
-                    }
+            ),
+          ),
+          const SizedBox(height: 20),
 
-                    return Column(
-                      children: snapshot.data!.docs.map((doc) {
-                        final data = doc.data() as Map<String, dynamic>;
+          // Comment list
+          Expanded(
+            child: StreamBuilder<QuerySnapshot>(
+              stream: AnsweringServices().getComments(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                  return const Center(child: Text("No comments found"));
+                }
 
-                        final name = data['name'] ?? "Unknown User";
-                        final profileImage =
-                            data['profileImage'] ??
-                            "assets/images/questions_profile_1.jpg";
-                        final comment = data['answering'] ?? "";
-                        final date = data['createdAt'] != null
-                            ? DateTime.fromMillisecondsSinceEpoch(
-                                int.tryParse(data['createdAt']) ?? 0,
-                              )
-                            : null;
+                return ListView(
+                  children: snapshot.data!.docs.map((doc) {
+                    final data = doc.data() as Map<String, dynamic>;
+                    final name = data['name'] ?? "Unknown User";
+                    final profileImage = data['profileImage'] ??
+                        "assets/images/questions_profile_1.jpg";
+                    final comment = data['answering'] ?? "";
+                    final date = data['createdAt'] != null
+                        ? DateTime.fromMillisecondsSinceEpoch(
+                      int.tryParse(data['createdAt']) ?? 0,
+                    ) : null;
 
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            ClipOval(
-                              child: profileImage.startsWith("http")
-                                  ? Image.network(
-                                      profileImage,
-                                      height: 40,
-                                      width: 40,
-                                      fit: BoxFit.cover,
-                                    )
-                                  : Image.asset(
-                                      profileImage,
-                                      height: 40,
-                                      width: 40,
-                                      fit: BoxFit.cover,
-                                    ),
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ClipOval(
+                            child: profileImage.startsWith("http")
+                                ? Image.network(
+                              profileImage,
+                              height: 40,
+                              width: 40,
+                              fit: BoxFit.cover,
+                            )
+                                : Image.asset(
+                              profileImage,
+                              height: 40,
+                              width: 40,
+                              fit: BoxFit.cover,
                             ),
-                            const SizedBox(width: 10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    name,
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(name,
                                     style: GoogleFonts.raleway(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500)),
+                                if (date != null)
                                   Text(
-                                    date != null
-                                        ? "${date.day}/${date.month}/${date.year}"
-                                        : "",
+                                    "${date.day}/${date.month}/${date.year}",
                                     style: GoogleFonts.raleway(
                                       fontSize: 12,
                                       color: const Color(0xffB4B4B4),
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    comment,
-                                    style: GoogleFonts.raleway(fontSize: 14),
-                                  ),
-                                ],
-                              ),
+                                const SizedBox(height: 5),
+                                Text(comment,
+                                    style: GoogleFonts.raleway(fontSize: 14)),
+                              ],
                             ),
-                          ],
-                        );
-                      }).toList(),
+                          ),
+                        ],
+                      ),
                     );
-                  },
-                ),
-              ),
-            ],
+                  }).toList(),
+                );
+              },
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
