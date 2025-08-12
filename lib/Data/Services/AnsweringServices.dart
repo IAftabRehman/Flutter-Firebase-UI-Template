@@ -17,34 +17,34 @@ class AnsweringServices {
 
   // final uid = FirebaseAuth.instance.currentUser?.uid;
   String? get uid => FirebaseAuth.instance.currentUser?.uid;
-
-  Future<String> currentVideoCommentUser_Name() async {
-    if (uid == null) return "Unknown User";
-
-    final snapshot = await FirebaseFirestore.instance
-        .collection('createAccount')
-        .doc(uid)
-        .get();
-
-    if (snapshot.exists) {
-      return snapshot.data()?['name'] ?? "Unknown User";
-    }
-    return "Unknown User";
-  }
-  Future<String> currentVideoCommentProfile_Image() async {
-    if (uid == null) return "assets/images/questions_profile_1.jpg";
-
-    final snapshot = await FirebaseFirestore.instance
-        .collection('createAccount')
-        .doc(uid)
-        .get();
-
-    if (snapshot.exists) {
-      return snapshot.data()?['profileImage'] ??
-          "assets/images/questions_profile_1.jpg";
-    }
-    return "assets/images/questions_profile_1.jpg";
-  }
+  //
+  // Future<String> currentVideoCommentUser_Name() async {
+  //   if (uid == null) return "Unknown User";
+  //
+  //   final snapshot = await FirebaseFirestore.instance
+  //       .collection('createAccount')
+  //       .doc(uid)
+  //       .get();
+  //
+  //   if (snapshot.exists) {
+  //     return snapshot.data()?['name'] ?? "Unknown User";
+  //   }
+  //   return "Unknown User";
+  // }
+  // Future<String> currentVideoCommentProfile_Image() async {
+  //   if (uid == null) return "assets/images/questions_profile_1.jpg";
+  //
+  //   final snapshot = await FirebaseFirestore.instance
+  //       .collection('createAccount')
+  //       .doc(uid)
+  //       .get();
+  //
+  //   if (snapshot.exists) {
+  //     return snapshot.data()?['profileImage'] ??
+  //         "assets/images/questions_profile_1.jpg";
+  //   }
+  //   return "assets/images/questions_profile_1.jpg";
+  // }
 
 
   Stream<QuerySnapshot> getComments() {
@@ -57,12 +57,11 @@ class AnsweringServices {
 
     final snapshot = await FirebaseFirestore.instance
         .collection('createAccount')
-        .where('docId', isEqualTo: uid)
-        .limit(1)
+        .doc(uid)
         .get();
 
-    if (snapshot.docs.isNotEmpty) {
-      return snapshot.docs.first.data()['name'] ?? "Unknown User";
+    if (snapshot.exists) {
+      return snapshot.data()?['name'] ?? "Unknown User";
     }
     return "Unknown User";
   }
@@ -78,6 +77,4 @@ class AnsweringServices {
     return snapshot.data()?['profileImage'] ??
         "assets/images/questions_profile_1.jpg";
   }
-
-
 }

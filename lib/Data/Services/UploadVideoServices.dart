@@ -19,7 +19,7 @@ class UploadVideoServices {
   }
 
   Future<String?> uploadVideoToCloudinary(File videoFile) async {
-    final cloudName = 'your own cloudery';
+    final cloudName = 'You own cloud ID';
     final uploadPreset = 'internship_first_task';
     final uri = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/video/upload");
 

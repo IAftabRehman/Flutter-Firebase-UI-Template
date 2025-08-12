@@ -1,5 +1,7 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +9,8 @@ import 'package:internship_first_task/Data/Models/registrationModel.dart';
 import 'package:internship_first_task/Data/Services/RegistrationServices.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/login.dart';
 import 'package:internship_first_task/Screens/Registration_And_Login/registration.dart';
+import 'package:provider/provider.dart';
+import '../../Data/Provider/userProvider.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Widgets/textBox_Widget.dart';
 
@@ -110,6 +114,7 @@ class _Registration2State extends State<Registration2> {
                 .then((val) {
                   isLoading = false;
                   setState(() {});
+
                   showDialog(
                     context: context,
                     barrierDismissible: false,
@@ -147,7 +152,22 @@ class _Registration2State extends State<Registration2> {
                               ),
                               const SizedBox(height: 20),
                               ElevatedButton(
-                                onPressed: () {
+                                onPressed: () async {
+                                  final userId = FirebaseAuth.instance.currentUser?.uid;
+                                  final userDoc = await FirebaseFirestore.instance
+                                      .collection('createAccount')
+                                      .doc(userId) // Current user ID
+                                      .get();
+
+                                  if (userDoc.exists) {
+                                    final userData = userDoc.data()!;
+
+                                    // Store in provider
+                                    Provider.of<UserProvider>(context, listen: false).setUser(
+                                      userData['name'],
+                                      userData['profileImage'],
+                                    );
+                                  }
                                   Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(

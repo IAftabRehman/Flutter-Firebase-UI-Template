@@ -1,5 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import '../../Data/Provider/userProvider.dart';
 import '../../Data/Services/AuthenticationServices.dart';
 import '../../Screens/Registration_And_Login/forgotPassword.dart';
 import '../../Screens/Registration_And_Login/registration.dart';
@@ -115,7 +119,7 @@ class _LoginState extends State<Login> {
                               .loginUser(
                               email: email.text,
                               password: password.text)
-                              .then((val) {
+                              .then((val) async {
                             isLoading = false;
                             setState(() {});
                             if (true) {
@@ -134,6 +138,21 @@ class _LoginState extends State<Login> {
                                       ],
                                     );
                                   });
+                              final userId = FirebaseAuth.instance.currentUser?.uid;
+                              final userDoc = await FirebaseFirestore.instance
+                                  .collection('createAccount')
+                                  .doc(userId) // Current user ID
+                                  .get();
+
+                              if (userDoc.exists) {
+                                final userData = userDoc.data()!;
+
+                                // Store in provider
+                                Provider.of<UserProvider>(context, listen: false).setUser(
+                                  userData['name'],
+                                  userData['profileImage'],
+                                );
+                              }
                             }
                             // else {
                             //   showDialog(

@@ -1,9 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:internship_first_task/Data/Models/answeringModel.dart';
+import 'package:internship_first_task/Data/Provider/userProvider.dart';
 import 'package:internship_first_task/Data/Services/AnsweringServices.dart';
 import 'package:internship_first_task/Widgets/video_show_widget.dart';
+import 'package:provider/provider.dart';
 import '../Data/Services/UploadVideoServices.dart';
 
 class comment_on_video_widget extends StatefulWidget {
@@ -13,6 +16,7 @@ class comment_on_video_widget extends StatefulWidget {
 }
 
 class _comment_on_video_widgetState extends State<comment_on_video_widget> {
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -90,6 +94,7 @@ class _allCommentsState extends State<allComments> {
   }
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -108,8 +113,8 @@ class _allCommentsState extends State<allComments> {
                       docId: DateTime.now().microsecondsSinceEpoch.toString(),
                       answering: typeComment.text.trim(),
                       createdAt: DateTime.now().millisecondsSinceEpoch.toString(),
-                      name: currentName ?? "Unknown User",
-                      profileImage: currentImage ?? "assets/images/questions_profile_1.jpg",
+                      name: userProvider.name,
+                      profileImage: userProvider.profileImage,
                     ),
                   );
                   typeComment.clear();
@@ -211,6 +216,7 @@ class first extends StatefulWidget {
 class _firstState extends State<first> {
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser?.uid);
     return StreamBuilder<QuerySnapshot>(
       stream: UploadVideoServices().gettingLatestVideos(),
       builder: (context, snapshot) {
